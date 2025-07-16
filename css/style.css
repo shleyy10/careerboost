@@ -1817,3 +1817,9 @@ footer {
             width: 0;
             transition: width 3s ease;
         }
+@font-face {
+    font-family: 'Poppins';
+    src: local('Arial');
+    font-weight: 300;
+}
+/* Add similar @font-face rules for other weights if needed */
