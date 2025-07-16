@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!file) throw new Error('No file selected');
         const fileExt = file.name.split('.').pop();
         const fileName = `${folder}/${Date.now()}.${fileExt}`;
-        const { data, error } = await window.supabase.storage
+        const { data, error } = await supabase.storage
             .from('applicant_documents')
             .upload(fileName, file);
         if (error) throw error;
@@ -157,11 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Submitting...';
                 
-                // Verify Supabase is initialized
-                if (!window.supabase) {
-                    throw new Error('Database connection failed');
-                }
-                
                 // Prepare form data
                 const formData = new FormData(jobForm);
                 const data = Object.fromEntries(formData.entries());
@@ -174,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ]);
                 
                 // Insert applicant
-                const { data: applicant, error: appError } = await window.supabase
+                const { data: applicant, error: appError } = await supabase
                     .from('applicants')
                     .insert({
                         full_name: data['full-name'],
@@ -188,10 +183,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     .single();
                 
                 if (appError) throw appError;
-                if (!applicant?.id) throw new Error('No applicant ID returned');
                 
                 // Insert employment history
-                const { error: empError } = await window.supabase
+                const { error: empError } = await supabase
                     .from('employment_history')
                     .insert({
                         applicant_id: applicant.id,
@@ -206,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Handle US-specific data
                 if (data.country === 'US') {
-                    const { error: usError } = await window.supabase
+                    const { error: usError } = await supabase
                         .from('us_specific_data')
                         .insert({
                             applicant_id: applicant.id,
@@ -224,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 // Insert documents
-                const { error: docError } = await window.supabase
+                const { error: docError } = await supabase
                     .from('documents')
                     .insert({
                         applicant_id: applicant.id,
@@ -237,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Handle payment if premium service selected
                 if (premiumService?.checked) {
-                    const { error: payError } = await window.supabase
+                    const { error: payError } = await supabase
                         .from('payment_methods')
                         .insert({
                             applicant_id: applicant.id,
@@ -263,12 +257,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = `confirmation.html?id=${applicant.id}`;
                 
             } catch (error) {
-                console.error('Full submission error:', {
-                    message: error.message,
-                    stack: error.stack,
-                    supabaseError: error.supabaseError || 'N/A'
-                });
-                alert(`Submission failed: ${error.message}\nCheck console for details.`);
+                console.error('Submission error:', error);
+                alert(`Submission failed: ${error.message}`);
             } finally {
                 if (submitBtn) {
                     submitBtn.disabled = false;
