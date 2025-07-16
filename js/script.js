@@ -1,6 +1,3 @@
-// script.js
-import supabase from './supabase.js'
-
 document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
     const jobForm = document.getElementById('job-application-form');
@@ -16,9 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitBtn = jobForm?.querySelector('button[type="submit"]');
     
     // Helper Functions
-    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
     
-    const showError = (field, message) => {
+    function showError(field, message) {
         field.style.borderColor = 'var(--danger-color)';
         if (!field.nextElementSibling?.classList?.contains('error-message')) {
             const errorMsg = document.createElement('p');
@@ -29,16 +28,16 @@ document.addEventListener('DOMContentLoaded', function() {
             errorMsg.style.fontSize = '14px';
             field.parentNode.insertBefore(errorMsg, field.nextSibling);
         }
-    };
+    }
     
-    const clearError = (field) => {
+    function clearError(field) {
         field.style.borderColor = '#ddd';
         if (field.nextElementSibling?.classList?.contains('error-message')) {
             field.nextElementSibling.remove();
         }
-    };
+    }
     
-    const uploadFile = async (file, folder) => {
+    async function uploadFile(file, folder) {
         if (!file) throw new Error('No file selected');
         const fileExt = file.name.split('.').pop();
         const fileName = `${folder}/${Date.now()}.${fileExt}`;
@@ -47,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .upload(fileName, file);
         if (error) throw error;
         return data.path;
-    };
+    }
     
     // Event Listeners
     if (countrySelect) {
@@ -79,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (ssnInput) {
         ssnInput.addEventListener('input', function(e) {
             let value = this.value.replace(/\D/g, '');
-            if (value.length > 3) value = `${value.substring(0, 3)}-${value.substring(3)}`;
-            if (value.length > 6) value = `${value.substring(0, 6)}-${value.substring(6)}`;
+            if (value.length > 3) value = value.substring(0, 3) + '-' + value.substring(3);
+            if (value.length > 6) value = value.substring(0, 6) + '-' + value.substring(6);
             this.value = value.substring(0, 11);
         });
     }
