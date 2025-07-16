@@ -1,0 +1,178 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(30, 41, 59, 0.9); /* Using --dark-color with alpha */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--light-color);
+    padding: 40px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.success-icon {
+    color: var(--success-color);
+}
+
+.error-icon {
+    color: var(--danger-color);
+}
+
+.modal-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: var(--dark-color);
+}
+
+.modal-message {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: var(--dark-color);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.modal-btn {
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-btn-primary {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border: none;
+}
+
+.modal-btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--gray-color);
+}
+
+/* Gift Card Upload Styles */
+.gift-card-upload {
+    margin-top: 15px;
+}
+
+.upload-instructions {
+    font-size: 14px;
+    color: var(--gray-color);
+    margin-bottom: 15px;
+}
+
+.dual-upload {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.upload-group {
+    border: 1px dashed var(--gray-color);
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    background-color: rgba(248, 250, 252, 0.5); /* --light-color with alpha */
+}
+
+.upload-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+/* Payment Method Styles */
+.payment-method {
+    position: relative;
+}
+
+.payment-method input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.payment-method label {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border: 1px solid var(--gray-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--dark-color);
+}
+
+.payment-method input[type="radio"]:checked + label {
+    border-color: var(--primary-color);
+    background-color: rgba(37, 99, 235, 0.1); /* --primary-color with alpha */
+}
+
+.payment-method label i {
+    margin-right: 10px;
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+.payment-method label span {
+    flex-grow: 1;
+}
+
+/* Additional states */
+.modal-btn:hover {
+    opacity: 0.9;
+}
+
+.upload-group:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(37, 99, 235, 0.05);
+}
+
+.modal-close:hover {
+    color: var(--danger-color);
+}
