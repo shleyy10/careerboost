@@ -4,9 +4,19 @@ document.addEventListener('DOMContentLoaded', function() {
         'https://ennkgaooigwkyafqgchv.supabase.co',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubmtnYW9vaWd3a3lhZnFnY2h2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NzYzNTgsImV4cCI6MjA2ODI1MjM1OH0.b7ogmi0adnadM34iHa1KdjZFMGB0vV5bw6VHcWdgh-o'
     );
+    // Initialize Supabase client (make sure supabase.js is loaded first)
+    if (typeof supabase === 'undefined') {
+        console.error('Supabase client not initialized. Make sure supabase.js is loaded.');
+        return; // This is a legal return statement inside the function
+    }
 
     // DOM Elements
     const form = document.getElementById('job-application-form');
+    if (!form) {
+        console.error('Form not found');
+        return;
+    }
+
     const countrySelect = document.getElementById('country');
     const usFieldsSection = document.getElementById('us-fields');
     const veteranRadio = document.querySelectorAll('input[name="veteran"]');
@@ -28,11 +38,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadFormData() {
         const savedData = localStorage.getItem('jobApplicationFormData');
         if (savedData) {
-            formData = JSON.parse(savedData);
-            populateForm();
+            try {
+                formData = JSON.parse(savedData);
+                populateForm();
+            } catch (e) {
+                console.error('Error parsing saved form data:', e);
+            }
         }
     }
-
     // Populate form with saved data
     function populateForm() {
         for (const key in formData) {
