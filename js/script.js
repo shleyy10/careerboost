@@ -24,38 +24,20 @@ document.addEventListener('DOMContentLoaded', function() {
   const countrySelect = document.getElementById('country');
   const usFields = document.getElementById('us-fields');
 
-  if (countrySelect && usFields) {
-    countrySelect.addEventListener('change', function() {
-      if (countrySelect.value === 'US') {
-        usFields.style.display = 'block';
-        usFields.querySelectorAll('input, select, textarea').forEach(el => {
-          el.setAttribute('required', 'required');
-        });
-      } else {
-        usFields.style.display = 'none';
-        usFields.querySelectorAll('input, select, textarea').forEach(el => {
-          el.removeAttribute('required');
-        });
-      }
-    });
-
-    // 👇 Fire on page load too!
+  countrySelect.addEventListener('change', function() {
     if (countrySelect.value === 'US') {
       usFields.style.display = 'block';
-      usFields.querySelectorAll('input, select, textarea').forEach(el => {
+      usFields.querySelectorAll('input, select').forEach(el => {
         el.setAttribute('required', 'required');
       });
     } else {
       usFields.style.display = 'none';
-      usFields.querySelectorAll('input, select, textarea').forEach(el => {
+      usFields.querySelectorAll('input, select').forEach(el => {
         el.removeAttribute('required');
       });
     }
-  } else {
-    console.error('Could not find #country or #us-fields');
-  }
+  });
 });
-
 
     // DOM Elements
     const jobForm = document.getElementById('job-application-form');
