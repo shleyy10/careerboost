@@ -1,3 +1,4 @@
+const supabase = createClient('https://xyz.supabase.co', 'public-anon-key');
 // First, verify Supabase is properly initialized
 if (typeof supabase === 'undefined') {
     console.error('Supabase not initialized! Check your supabase.js file');
