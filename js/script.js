@@ -1,3 +1,24 @@
+document.addEventListener('DOMContentLoaded', function() {
+  const savedData = localStorage.getItem('jobApplicationData');
+  if (savedData) {
+    const data = JSON.parse(savedData);
+
+    for (const [key, value] of Object.entries(data)) {
+      const field = document.querySelector(`[name="${key}"]`);
+      if (field) {
+        if (field.type === 'radio' || field.type === 'checkbox') {
+          const match = document.querySelector(`[name="${key}"][value="${value}"]`);
+          if (match) match.checked = true;
+        } else {
+          field.value = value;
+        }
+      }
+    }
+
+    console.log('Restored form data from localStorage');
+  }
+});
+
 // First, verify Supabase is properly initialized
 console.log('👀 Checking client:', supabaseClient);
 
