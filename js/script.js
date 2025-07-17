@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // First, verify Supabase is properly initialized
-console.log('👀 Checking client:', supabaseClient);
+console.log('👀 Checking client:', supabase);
 
-supabaseClient.from('applicants').insert()
+supabase.from('applicants').insert()
 
 if (typeof supabase === 'undefined') {
     console.error('Supabase not initialized! Check your supabase.js file');
