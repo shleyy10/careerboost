@@ -29,7 +29,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const paymentMethod = document.getElementById('payment-method');
     const creditCardFields = document.getElementById('credit-card-fields');
     const submitBtn = document.getElementById('submit-button');
-    
+
+// ✅ After DOM loaded
+document.addEventListener('DOMContentLoaded', function() {
+  const countrySelect = document.getElementById('country');
+  const usFields = document.getElementById('us-fields');
+
+  countrySelect.addEventListener('change', function() {
+    if (countrySelect.value === 'US') {
+      usFields.style.display = 'block';
+
+      // Add required to US-only inputs
+      usFields.querySelectorAll('input, select').forEach(el => {
+        el.setAttribute('required', 'required');
+      });
+    } else {
+      usFields.style.display = 'none';
+
+      // Remove required from hidden US-only inputs
+      usFields.querySelectorAll('input, select').forEach(el => {
+        el.removeAttribute('required');
+      });
+    }
+  });
+});
     // Helper Functions
     function isValidEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
