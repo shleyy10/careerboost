@@ -1,4 +1,8 @@
 // First, verify Supabase is properly initialized
+console.log('👀 Checking client:', supabaseClient);
+
+supabaseClient.from('applicants').insert({...})
+
 if (typeof supabase === 'undefined') {
     console.error('Supabase not initialized! Check your supabase.js file');
 }
