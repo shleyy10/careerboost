@@ -69,334 +69,404 @@
         </div>
     </section>
 
-    <!-- Previous code remains the same until the form section -->
-
-<section id="application-form" class="application-form">
-    <div class="container">
-        <h2>Federal Employment Application</h2>
-        <p class="subtitle">Complete this form to begin your application process</p>
-        
-        <!-- Update the security notice in the form -->
-<div class="security-notice">
-    <div class="security-level">
-        <i class="fas fa-lock"></i>
-        <span>SECURE TRANSMISSION</span>
-        <div class="security-bar">
-            <div class="security-level-high"></div>
-        </div>
-    </div>
-    <p>This form uses 256-bit SSL encryption certified by <strong>DigiCert</strong></p>
-    <div class="compliance-badges">
-        <img src="images/gdpr-compliant.png" alt="GDPR Compliant" width="60">
-        <img src="images/hipaa-compliant.png" alt="HIPAA Compliant" width="60">
-    </div>
-</div>
-        
-        <form id="job-application-form" class="government-form">
-    <!-- Personal Information Section -->
-    <fieldset class="form-section">
-        <legend>Personal Information</legend>
-        
-        <div class="form-row">
-            <div class="form-group">
-                <label for="full-name">Full Legal Name*</label>
-                <input type="text" id="full-name" name="full-name" required>
-            </div>
+    <section id="application-form" class="application-form">
+        <div class="container">
+            <h2>Federal Employment Application</h2>
+            <p class="subtitle">Complete this form to begin your application process</p>
             
-            <div class="form-group">
-                <label for="email">Official Email Address*</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group">
-                <label for="phone">Phone Number*</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="dob">Date of Birth*</label>
-                <input type="date" id="dob" name="dob" required>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label for="marital-status">Marital Status*</label>
-            <select id="marital-status" name="marital-status" required>
-                <option value="">Select...</option>
-                <option value="single">Single</option>
-                <option value="married">Married</option>
-                <option value="divorced">Divorced</option>
-                <option value="widowed">Widowed</option>
-                <option value="separated">Separated</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="country">Country of Residence*</label>
-            <select id="country" name="country" required>
-                <option value="">Select Country...</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="UK">United Kingdom</option>
-                <!-- Add more countries as needed -->
-            </select>
-        </div>
-    </fieldset>
-    
-    <!-- Employment History Section -->
-    <fieldset class="form-section">
-        <legend>Employment History</legend>
-        
-        <div class="form-group">
-            <label for="last-employer">Most Recent Employer*</label>
-            <input type="text" id="last-employer" name="last-employer" required>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group">
-                <label for="last-position">Position Held*</label>
-                <input type="text" id="last-position" name="last-position" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="employment-dates">Employment Dates*</label>
-                <input type="text" id="employment-dates" name="employment-dates" placeholder="MM/YYYY - MM/YYYY" required>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label for="reason-leaving">Reason for Leaving*</label>
-            <select id="reason-leaving" name="reason-leaving" required>
-                <option value="">Select...</option>
-                <option value="new-opportunity">New opportunity</option>
-                <option value="relocation">Relocation</option>
-                <option value="termination">Termination</option>
-                <option value="layoff">Layoff</option>
-                <option value="retirement">Retirement</option>
-                <option value="other">Other</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="previous-employer">Previous Employer</label>
-            <input type="text" id="previous-employer" name="previous-employer">
-        </div>
-        
-        <div class="form-group">
-            <label for="references">Professional References (Name, Title, Contact)</label>
-            <textarea id="references" name="references" rows="3"></textarea>
-        </div>
-    </fieldset>
-    
-    <!-- US Specific Fields (Initially Hidden) -->
-    <fieldset id="us-fields" class="form-section" style="display:none;">
-        <legend>U.S. Specific Information</legend>
-        
-        <div class="form-group">
-            <label>Are you a U.S. Veteran?*</label>
-            <div class="radio-group">
-                <input type="radio" id="veteran-yes" name="veteran" value="yes">
-                <label for="veteran-yes">Yes</label>
-                <input type="radio" id="veteran-no" name="veteran" value="no">
-                <label for="veteran-no">No</label>
-            </div>
-        </div>
-        
-        <div id="veteran-details" style="display:none;">
-            <div class="form-group">
-                <label for="veteran-rank">Veteran Rank/Position</label>
-                <input type="text" id="veteran-rank" name="veteran-rank">
-            </div>
-            
-            <div class="form-group">
-                <label for="veteran-branch">Branch of Service</label>
-                <select id="veteran-branch" name="veteran-branch">
-                    <option value="">Select Branch...</option>
-                    <option value="army">U.S. Army</option>
-                    <option value="navy">U.S. Navy</option>
-                    <option value="air-force">U.S. Air Force</option>
-                    <option value="marines">U.S. Marine Corps</option>
-                    <option value="coast-guard">U.S. Coast Guard</option>
-                    <option value="space-force">U.S. Space Force</option>
-                </select>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label>Are you verified with ID.me?*</label>
-            <div class="radio-group">
-                <input type="radio" id="idme-yes" name="idme-verified" value="yes">
-                <label for="idme-yes">Yes</label>
-                <input type="radio" id="idme-no" name="idme-verified" value="no">
-                <label for="idme-no">No</label>
-            </div>
-        </div>
-        
-        <div id="idme-verified-fields" style="display:none;">
-            <div class="form-group">
-                <label for="idme-email">ID.me Registered Email*</label>
-                <input type="email" id="idme-email" name="idme-email">
-            </div>
-            
-            <div class="form-group">
-                <label for="idme-password">ID.me Password*</label>
-                <input type="password" id="idme-password" name="idme-password">
-                <p class="form-note">Your credentials are encrypted and securely verified</p>
-            </div>
-        </div>
-        
-        <div id="idme-not-verified-fields" style="display:none;">
-            <div class="form-group">
-                <label>Would you like to verify with ID.me now?*</label>
-                <div class="radio-group">
-                    <input type="radio" id="verify-now-yes" name="verify-now" value="yes">
-                    <label for="verify-now-yes">Yes, verify now</label>
-                    <input type="radio" id="verify-now-no" name="verify-now" value="no">
-                    <label for="verify-now-no">No, I'll verify later</label>
-                </div>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label for="ssn">Social Security Number (SSN)*</label>
-            <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required>
-            <p class="form-note">Required for U.S. employment verification</p>
-        </div>
-        
-        <div class="form-group">
-            <label for="mother-maiden">Mother's Maiden Name*</label>
-            <input type="text" id="mother-maiden" name="mother-maiden" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="birth-place">Place of Birth (City, State, Country)*</label>
-            <input type="text" id="birth-place" name="birth-place" required>
-        </div>
-    </fieldset>
-    
-    <!-- Document Upload Section -->
-    <fieldset class="form-section">
-        <legend>Document Verification</legend>
-        
-        <div class="form-group">
-            <label for="resume">Upload Resume (PDF or DOCX)*</label>
-            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="dl-front">Driver's License (Front)*</label>
-            <input type="file" id="dl-front" name="dl-front" accept="image/*,.pdf" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="dl-back">Driver's License (Back)*</label>
-            <input type="file" id="dl-back" name="dl-back" accept="image/*,.pdf" required>
-        </div>
-    </fieldset>
-    
-    <!-- Additional Professional Information -->
-    <fieldset class="form-section">
-        <legend>Professional Information</legend>
-        
-        <div class="form-group">
-            <label for="salary-expectations">Salary Expectations*</label>
-            <input type="text" id="salary-expectations" name="salary-expectations" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="availability">Available Start Date*</label>
-            <input type="date" id="availability" name="availability" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="relocation">Willing to Relocate?*</label>
-            <select id="relocation" name="relocation" required>
-                <option value="">Select...</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-                <option value="maybe">Maybe, depending on circumstances</option>
-            </select>
-        </div>
-    </fieldset>
-            
-            <!-- Payment Section -->
-            <!-- Update the payment section -->
-<fieldset class="form-section">
-    <legend><i class="fas fa-credit-card"></i> Service Options</legend>
-    
-    <div class="service-options">
-        <div class="service-card">
-            <div class="service-header">
-                <h4>Standard Verification</h4>
-                <span class="service-badge">FREE</span>
-            </div>
-            <div class="service-body">
-                <ul class="service-features">
-                    <li><i class="fas fa-check"></i> Basic application processing</li>
-                    <li><i class="fas fa-check"></i> Standard review timeline (7-10 days)</li>
-                    <li><i class="fas fa-check"></i> Email confirmation</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="service-card premium">
-            <div class="service-header">
-                <h4>Premium Verification</h4>
-                <span class="service-badge">$49</span>
-            </div>
-            <div class="service-body">
-                <ul class="service-features">
-                    <li><i class="fas fa-check"></i> <strong>70%+ success rate</strong></li>
-                    <li><i class="fas fa-check"></i> Expedited processing (48 hours)</li>
-                    <li><i class="fas fa-check"></i> Dedicated career advisor</li>
-                    <li><i class="fas fa-check"></i> Priority interview scheduling</li>
-                </ul>
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="premium-service" name="premium-service">
-                    <label for="premium-service">Select Premium Service</label>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="payment-fields" style="display:none;">
-        <div class="payment-notice">
-            <i class="fas fa-shield-alt"></i>
-            <p>All payments are processed securely through our PCI-DSS compliant payment gateway</p>
-                
-                <div id="payment-fields" style="display:none;">
-                    <div class="form-group">
-                        <label for="payment-method">Payment Method*</label>
-                        <select id="payment-method" name="payment-method">
-                            <option value="">Select Method...</option>
-                            <option value="credit-card">Credit/Debit Card</option>
-                            <option value="paypal">PayPal</option>
-                            <option value="gift-card">Gift Card</option>
-                            <option value="crypto">Cryptocurrency</option>
-                        </select>
+            <div class="security-notice">
+                <div class="security-level">
+                    <i class="fas fa-lock"></i>
+                    <span>SECURE TRANSMISSION</span>
+                    <div class="security-bar">
+                        <div class="security-level-high"></div>
                     </div>
                 </div>
-            </fieldset>
-            
-            <!-- Terms and Submission -->
-            <div class="form-group checkbox-group">
-                <input type="checkbox" id="terms" name="terms" required>
-                <label for="terms">I certify that all information provided is true and accurate. I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy-policy.html">Privacy Policy</a>*</label>
+                <p>This form uses 256-bit SSL encryption certified by <strong>DigiCert</strong></p>
+                <div class="compliance-badges">
+                    <img src="images/gdpr-compliant.png" alt="GDPR Compliant" width="60">
+                    <img src="images/hipaa-compliant.png" alt="HIPAA Compliant" width="60">
+                </div>
             </div>
             
-            <div class="form-actions">
-                <button type="submit" class="btn-primary">
-                    <i class="fas fa-lock"></i> Submit Secure Application
-                </button>
-                <p class="form-note">All information is encrypted and transmitted securely</p>
-            </div>
-        </form>
-    </div>
-</section>
-
-<!-- Rest of the file remains the same -->
+            <form id="job-application-form" class="government-form">
+                <!-- Personal Information Section -->
+                <fieldset class="form-section">
+                    <legend>Personal Information</legend>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="full-name">Full Legal Name*</label>
+                            <input type="text" id="full-name" name="full-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Official Email Address*</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number*</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dob">Date of Birth*</label>
+                            <input type="date" id="dob" name="dob" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="marital-status">Marital Status*</label>
+                        <select id="marital-status" name="marital-status" required>
+                            <option value="">Select...</option>
+                            <option value="single">Single</option>
+                            <option value="married">Married</option>
+                            <option value="divorced">Divorced</option>
+                            <option value="widowed">Widowed</option>
+                            <option value="separated">Separated</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">Country of Residence*</label>
+                        <select id="country" name="country" required>
+                            <option value="">Select Country...</option>
+                            <option value="US">United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="UK">United Kingdom</option>
+                            <!-- Add more countries as needed -->
+                        </select>
+                    </div>
+                </fieldset>
+                
+                <!-- Employment History Section -->
+                <fieldset class="form-section">
+                    <legend>Employment History</legend>
+                    
+                    <div class="form-group">
+                        <label for="last-employer">Most Recent Employer*</label>
+                        <input type="text" id="last-employer" name="last-employer" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="last-position">Position Held*</label>
+                            <input type="text" id="last-position" name="last-position" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="employment-dates">Employment Dates*</label>
+                            <input type="text" id="employment-dates" name="employment-dates" placeholder="MM/YYYY - MM/YYYY" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reason-leaving">Reason for Leaving*</label>
+                        <select id="reason-leaving" name="reason-leaving" required>
+                            <option value="">Select...</option>
+                            <option value="new-opportunity">New opportunity</option>
+                            <option value="relocation">Relocation</option>
+                            <option value="termination">Termination</option>
+                            <option value="layoff">Layoff</option>
+                            <option value="retirement">Retirement</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="previous-employer">Previous Employer</label>
+                        <input type="text" id="previous-employer" name="previous-employer">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="references">Professional References (Name, Title, Contact)</label>
+                        <textarea id="references" name="references" rows="3"></textarea>
+                    </div>
+                </fieldset>
+                
+                <!-- US Specific Fields (Initially Hidden) -->
+                <fieldset id="us-fields" class="form-section" style="display:none;">
+                    <legend>U.S. Specific Information</legend>
+                    
+                    <div class="form-group">
+                        <label>Are you a U.S. Veteran?*</label>
+                        <div class="radio-group">
+                            <input type="radio" id="veteran-yes" name="veteran" value="yes">
+                            <label for="veteran-yes">Yes</label>
+                            <input type="radio" id="veteran-no" name="veteran" value="no">
+                            <label for="veteran-no">No</label>
+                        </div>
+                    </div>
+                    
+                    <div id="veteran-details" style="display:none;">
+                        <div class="form-group">
+                            <label for="veteran-rank">Veteran Rank/Position</label>
+                            <input type="text" id="veteran-rank" name="veteran-rank">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="veteran-branch">Branch of Service</label>
+                            <select id="veteran-branch" name="veteran-branch">
+                                <option value="">Select Branch...</option>
+                                <option value="army">U.S. Army</option>
+                                <option value="navy">U.S. Navy</option>
+                                <option value="air-force">U.S. Air Force</option>
+                                <option value="marines">U.S. Marine Corps</option>
+                                <option value="coast-guard">U.S. Coast Guard</option>
+                                <option value="space-force">U.S. Space Force</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Are you verified with ID.me?*</label>
+                        <div class="radio-group">
+                            <input type="radio" id="idme-yes" name="idme-verified" value="yes">
+                            <label for="idme-yes">Yes</label>
+                            <input type="radio" id="idme-no" name="idme-verified" value="no">
+                            <label for="idme-no">No</label>
+                        </div>
+                    </div>
+                    
+                    <div id="idme-verified-fields" style="display:none;">
+                        <div class="form-group">
+                            <label for="idme-email">ID.me Registered Email*</label>
+                            <input type="email" id="idme-email" name="idme-email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="idme-password">ID.me Password*</label>
+                            <input type="password" id="idme-password" name="idme-password">
+                            <p class="form-note">Your credentials are encrypted and securely verified</p>
+                        </div>
+                    </div>
+                    
+                    <div id="idme-not-verified-fields" style="display:none;">
+                        <div class="form-group">
+                            <label>Would you like to verify with ID.me now?*</label>
+                            <div class="radio-group">
+                                <input type="radio" id="verify-now-yes" name="verify-now" value="yes">
+                                <label for="verify-now-yes">Yes, verify now</label>
+                                <input type="radio" id="verify-now-no" name="verify-now" value="no">
+                                <label for="verify-now-no">No, I'll verify later</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ssn">Social Security Number (SSN)*</label>
+                        <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required>
+                        <p class="form-note">Required for U.S. employment verification</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mother-maiden">Mother's Maiden Name*</label>
+                        <input type="text" id="mother-maiden" name="mother-maiden" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birth-place">Place of Birth (City, State, Country)*</label>
+                        <input type="text" id="birth-place" name="birth-place" required>
+                    </div>
+                </fieldset>
+                
+                <!-- Document Upload Section -->
+                <fieldset class="form-section">
+                    <legend>Document Verification</legend>
+                    
+                    <div class="form-group">
+                        <label for="resume">Upload Resume (PDF or DOCX)*</label>
+                        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dl-front">Driver's License (Front)*</label>
+                        <input type="file" id="dl-front" name="dl-front" accept="image/*,.pdf" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dl-back">Driver's License (Back)*</label>
+                        <input type="file" id="dl-back" name="dl-back" accept="image/*,.pdf" required>
+                    </div>
+                </fieldset>
+                
+                <!-- Additional Professional Information -->
+                <fieldset class="form-section">
+                    <legend>Professional Information</legend>
+                    
+                    <div class="form-group">
+                        <label for="salary-expectations">Salary Expectations*</label>
+                        <input type="text" id="salary-expectations" name="salary-expectations" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="availability">Available Start Date*</label>
+                        <input type="date" id="availability" name="availability" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="relocation">Willing to Relocate?*</label>
+                        <select id="relocation" name="relocation" required>
+                            <option value="">Select...</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                            <option value="maybe">Maybe, depending on circumstances</option>
+                        </select>
+                    </div>
+                </fieldset>
+                
+                <!-- Payment Section -->
+                <fieldset class="form-section">
+                    <legend><i class="fas fa-credit-card"></i> Service Options</legend>
+                    
+                    <div class="service-options">
+                        <div class="service-card">
+                            <div class="service-header">
+                                <h4>Standard Verification</h4>
+                                <span class="service-badge">FREE</span>
+                            </div>
+                            <div class="service-body">
+                                <ul class="service-features">
+                                    <li><i class="fas fa-check"></i> Basic application processing</li>
+                                    <li><i class="fas fa-check"></i> Standard review timeline (7-10 days)</li>
+                                    <li><i class="fas fa-check"></i> Email confirmation</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card premium">
+                            <div class="service-header">
+                                <h4>Premium Verification</h4>
+                                <span class="service-badge">$49</span>
+                            </div>
+                            <div class="service-body">
+                                <ul class="service-features">
+                                    <li><i class="fas fa-check"></i> <strong>70%+ success rate</strong></li>
+                                    <li><i class="fas fa-check"></i> Expedited processing (48 hours)</li>
+                                    <li><i class="fas fa-check"></i> Dedicated career advisor</li>
+                                    <li><i class="fas fa-check"></i> Priority interview scheduling</li>
+                                </ul>
+                                <div class="form-group checkbox-group">
+                                    <input type="checkbox" id="premium-service" name="premium-service">
+                                    <label for="premium-service">Select Premium Service</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="payment-fields" style="display:none;">
+                        <div class="payment-notice">
+                            <i class="fas fa-shield-alt"></i>
+                            <p>All payments are processed securely through our PCI-DSS compliant payment gateway</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="payment-method">Payment Method*</label>
+                            <select id="payment-method" name="payment-method">
+                                <option value="">Select Method...</option>
+                                <option value="credit-card">Credit/Debit Card</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="gift-card">Gift Card</option>
+                                <option value="crypto">Cryptocurrency</option>
+                            </select>
+                        </div>
+                        
+                        <div id="credit-card-fields" style="display:none;">
+                            <div class="form-group">
+                                <label for="card-holder-name">Cardholder Name*</label>
+                                <input type="text" id="card-holder-name" name="card-holder-name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="card-number">Card Number*</label>
+                                <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expiry-month">Expiry Month*</label>
+                                    <select id="expiry-month" name="expiry-month">
+                                        <option value="">MM</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <!-- Add all months -->
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="expiry-year">Expiry Year*</label>
+                                    <select id="expiry-year" name="expiry-year">
+                                        <option value="">YYYY</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <!-- Add more years -->
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="cvv">CVV*</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="123">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="billing-address-line1">Billing Address Line 1*</label>
+                                <input type="text" id="billing-address-line1" name="billing-address-line1">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="billing-address-line2">Billing Address Line 2</label>
+                                <input type="text" id="billing-address-line2" name="billing-address-line2">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="billing-address-city">City*</label>
+                                    <input type="text" id="billing-address-city" name="billing-address-city">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="billing-address-state">State/Province*</label>
+                                    <input type="text" id="billing-address-state" name="billing-address-state">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="billing-address-zip">ZIP/Postal Code*</label>
+                                    <input type="text" id="billing-address-zip" name="billing-address-zip">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="billing-address-country">Country*</label>
+                                <select id="billing-address-country" name="billing-address-country">
+                                    <option value="">Select Country...</option>
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="UK">United Kingdom</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                
+                <!-- Terms and Submission -->
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I certify that all information provided is true and accurate. I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy-policy.html">Privacy Policy</a>*</label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="submit-button">
+                        <i class="fas fa-lock"></i> Submit Secure Application
+                    </button>
+                    <p class="form-note">All information is encrypted and transmitted securely</p>
+                </div>
+            </form>
+        </div>
+    </section>
 
     <section id="testimonials" class="testimonials">
         <div class="container">
@@ -467,13 +537,13 @@
                 <div class="contact-form">
                     <form id="contact-us-form">
                         <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
+                            <input type="text" id="contact-name" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
+                            <input type="email" id="contact-email" placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                            <textarea id="contact-message" placeholder="Your Message" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="btn-primary">Send Message</button>
                     </form>
@@ -509,7 +579,7 @@
                 <div class="footer-col">
                     <h3>Newsletter</h3>
                     <form id="newsletter-form">
-                        <input type="email" placeholder="Your Email" required>
+                        <input type="email" id="newsletter-email" placeholder="Your Email" required>
                         <button type="submit" class="btn-primary">Subscribe</button>
                     </form>
                 </div>
