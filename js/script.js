@@ -1,19 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Supabase client (make sure to configure your supabase.js file)
-    const supabase = supabase.createClient(
-        'https://ennkgaooigwkyafqgchv.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubmtnYW9vaWd3a3lhZnFnY2h2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NzYzNTgsImV4cCI6MjA2ODI1MjM1OH0.b7ogmi0adnadM34iHa1KdjZFMGB0vV5bw6VHcWdgh-o'
-    );
-    // Initialize Supabase client (make sure supabase.js is loaded first)
-    if (typeof supabase === 'undefined') {
-        console.error('Supabase client not initialized. Make sure supabase.js is loaded.');
-        return; // This is a legal return statement inside the function
-    }
+    // Initialize Supabase client directly (no separate supabase.js needed)
+    const supabaseUrl = 'https://ennkgaooigwkyafqgchv.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubmtnYW9vaWd3a3lhZnFnY2h2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NzYzNTgsImV4cCI6MjA2ODI1MjM1OH0.b7ogmi0adnadM34iHa1KdjZFMGB0vV5bw6VHcWdgh-o';
+    
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
     // DOM Elements
     const form = document.getElementById('job-application-form');
     if (!form) {
-        console.error('Form not found');
+        console.error('Form element not found');
         return;
     }
 
@@ -46,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+
     // Populate form with saved data
     function populateForm() {
         for (const key in formData) {
@@ -59,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         // Trigger change events to show/hide conditional fields
-        countrySelect.dispatchEvent(new Event('change'));
+        if (countrySelect) countrySelect.dispatchEvent(new Event('change'));
         document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
             radio.dispatchEvent(new Event('change'));
         });
@@ -85,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Toggle required attribute for all inputs in a section
     function toggleRequiredFields(section, isRequired) {
+        if (!section) return;
         const inputs = section.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
             if (isRequired) {
@@ -202,16 +199,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             isLoading = true;
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            }
 
             // Save form data to localStorage
             saveFormData();
 
             // Upload files first
-            const resumeFile = document.getElementById('resume').files[0];
-            const dlFrontFile = document.getElementById('dl-front').files[0];
-            const dlBackFile = document.getElementById('dl-back').files[0];
+            const resumeFile = document.getElementById('resume')?.files[0];
+            const dlFrontFile = document.getElementById('dl-front')?.files[0];
+            const dlBackFile = document.getElementById('dl-back')?.files[0];
 
             const [resumePath, dlFrontPath, dlBackPath] = await Promise.all([
                 uploadFile(resumeFile),
@@ -246,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             // Add US-specific fields if applicable
-            if (countrySelect.value === 'US') {
+            if (countrySelect && countrySelect.value === 'US') {
                 applicationData.is_veteran = formData.get('veteran') === 'yes';
                 applicationData.veteran_rank = formData.get('veteran-rank');
                 applicationData.veteran_branch = formData.get('veteran-branch');
@@ -272,56 +271,90 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('There was an error submitting your application. Please try again.');
         } finally {
             isLoading = false;
-            submitButton.disabled = false;
-            submitButton.innerHTML = '<i class="fas fa-lock"></i> Submit Secure Application';
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fas fa-lock"></i> Submit Secure Application';
+            }
         }
     }
 
     // Event Listeners
-    countrySelect.addEventListener('change', function() {
-        if (this.value === 'US') {
-            usFieldsSection.style.display = 'block';
-            toggleRequiredFields(usFieldsSection, true);
-        } else {
-            usFieldsSection.style.display = 'none';
-            toggleRequiredFields(usFieldsSection, false);
-        }
-    });
-
-    veteranRadio.forEach(radio => {
-        radio.addEventListener('change', function() {
-            veteranDetails.style.display = this.value === 'yes' && this.checked ? 'block' : 'none';
-        });
-    });
-
-    idmeRadio.forEach(radio => {
-        radio.addEventListener('change', function() {
-            if (this.value === 'yes' && this.checked) {
-                idmeVerifiedFields.style.display = 'block';
-                idmeNotVerifiedFields.style.display = 'none';
-                toggleRequiredFields(idmeVerifiedFields, true);
-                toggleRequiredFields(idmeNotVerifiedFields, false);
-            } else if (this.value === 'no' && this.checked) {
-                idmeVerifiedFields.style.display = 'none';
-                idmeNotVerifiedFields.style.display = 'block';
-                toggleRequiredFields(idmeVerifiedFields, false);
-                toggleRequiredFields(idmeNotVerifiedFields, true);
+    if (countrySelect) {
+        countrySelect.addEventListener('change', function() {
+            if (this.value === 'US') {
+                if (usFieldsSection) {
+                    usFieldsSection.style.display = 'block';
+                    toggleRequiredFields(usFieldsSection, true);
+                }
             } else {
-                idmeVerifiedFields.style.display = 'none';
-                idmeNotVerifiedFields.style.display = 'none';
-                toggleRequiredFields(idmeVerifiedFields, false);
-                toggleRequiredFields(idmeNotVerifiedFields, false);
+                if (usFieldsSection) {
+                    usFieldsSection.style.display = 'none';
+                    toggleRequiredFields(usFieldsSection, false);
+                }
             }
         });
-    });
+    }
 
-    premiumServiceCheckbox.addEventListener('change', function() {
-        paymentFields.style.display = this.checked ? 'block' : 'none';
-    });
+    if (veteranRadio) {
+        veteranRadio.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (veteranDetails) {
+                    veteranDetails.style.display = this.value === 'yes' && this.checked ? 'block' : 'none';
+                }
+            });
+        });
+    }
 
-    paymentMethod.addEventListener('change', function() {
-        creditCardFields.style.display = this.value === 'credit-card' ? 'block' : 'none';
-    });
+    if (idmeRadio) {
+        idmeRadio.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'yes' && this.checked) {
+                    if (idmeVerifiedFields) {
+                        idmeVerifiedFields.style.display = 'block';
+                        toggleRequiredFields(idmeVerifiedFields, true);
+                    }
+                    if (idmeNotVerifiedFields) {
+                        idmeNotVerifiedFields.style.display = 'none';
+                        toggleRequiredFields(idmeNotVerifiedFields, false);
+                    }
+                } else if (this.value === 'no' && this.checked) {
+                    if (idmeVerifiedFields) {
+                        idmeVerifiedFields.style.display = 'none';
+                        toggleRequiredFields(idmeVerifiedFields, false);
+                    }
+                    if (idmeNotVerifiedFields) {
+                        idmeNotVerifiedFields.style.display = 'block';
+                        toggleRequiredFields(idmeNotVerifiedFields, true);
+                    }
+                } else {
+                    if (idmeVerifiedFields) {
+                        idmeVerifiedFields.style.display = 'none';
+                        toggleRequiredFields(idmeVerifiedFields, false);
+                    }
+                    if (idmeNotVerifiedFields) {
+                        idmeNotVerifiedFields.style.display = 'none';
+                        toggleRequiredFields(idmeNotVerifiedFields, false);
+                    }
+                }
+            });
+        });
+    }
+
+    if (premiumServiceCheckbox) {
+        premiumServiceCheckbox.addEventListener('change', function() {
+            if (paymentFields) {
+                paymentFields.style.display = this.checked ? 'block' : 'none';
+            }
+        });
+    }
+
+    if (paymentMethod) {
+        paymentMethod.addEventListener('change', function() {
+            if (creditCardFields) {
+                creditCardFields.style.display = this.value === 'credit-card' ? 'block' : 'none';
+            }
+        });
+    }
 
     // Auto-save form data on change
     form.addEventListener('input', function() {
@@ -335,19 +368,25 @@ document.addEventListener('DOMContentLoaded', function() {
     loadFormData();
 
     // Add real-time validation for email and SSN
-    document.getElementById('email').addEventListener('blur', function() {
-        if (this.value && !validateEmail(this.value)) {
-            showError(this, 'Please enter a valid email address');
-        } else {
-            clearError(this);
-        }
-    });
+    const emailField = document.getElementById('email');
+    if (emailField) {
+        emailField.addEventListener('blur', function() {
+            if (this.value && !validateEmail(this.value)) {
+                showError(this, 'Please enter a valid email address');
+            } else {
+                clearError(this);
+            }
+        });
+    }
 
-    document.getElementById('ssn').addEventListener('blur', function() {
-        if (this.value && !validateSSN(this.value)) {
-            showError(this, 'Please enter a valid SSN (XXX-XX-XXXX)');
-        } else {
-            clearError(this);
-        }
-    });
+    const ssnField = document.getElementById('ssn');
+    if (ssnField) {
+        ssnField.addEventListener('blur', function() {
+            if (this.value && !validateSSN(this.value)) {
+                showError(this, 'Please enter a valid SSN (XXX-XX-XXXX)');
+            } else {
+                clearError(this);
+            }
+        });
+    }
 });
