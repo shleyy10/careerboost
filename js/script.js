@@ -1,18 +1,23 @@
-const supabase = createClient('https://xyz.supabase.co', 'public-anon-key');
-// First, verify Supabase is properly initialized
-if (typeof supabase === 'undefined') {
-    console.error('Supabase not initialized! Check your supabase.js file');
+// ✅ Correct: create Supabase client FIRST
+const supabase = createClient('https://ennkgaooigwkyafqgchv.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubmtnYW9vaWd3a3lhZnFnY2h2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NzYzNTgsImV4cCI6MjA2ODI1MjM1OH0.b7ogmi0adnadM34iHa1KdjZFMGB0vV5bw6VHcWdgh-o');
+
+// ✅ Check if Supabase initialized
+if (!supabase) {
+  console.error('Supabase not initialized! Check your supabase.js file');
 }
 
+// ✅ Safe DOM usage AFTER client
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM fully loaded and parsed'); // Debugging confirmation
+  console.log('DOM fully loaded and parsed'); // Debug confirmation
 
-    // DOM Elements with null checks
-    const jobForm = document.getElementById('job-application-form');
-    if (!jobForm) {
-        console.error('Error: Could not find form with ID "job-application-form"');
-        return;
-    }
+  // DOM Elements with null checks
+  const jobForm = document.getElementById('job-application-form');
+  if (!jobForm) {
+    console.error('Error: Could not find form with ID "job-application-form"');
+    return;
+  }
+});
+
 
     const countrySelect = document.getElementById('country');
     const usFields = document.getElementById('us-fields');
