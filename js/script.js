@@ -1,10 +1,8 @@
-// ✅ Correct: create Supabase client FIRST
-const supabase = createClient('https://ennkgaooigwkyafqgchv.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubmtnYW9vaWd3a3lhZnFnY2h2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NzYzNTgsImV4cCI6MjA2ODI1MjM1OH0.b7ogmi0adnadM34iHa1KdjZFMGB0vV5bw6VHcWdgh-o');
-
-// ✅ Check if Supabase initialized
-if (!supabase) {
-  console.error('Supabase not initialized! Check your supabase.js file');
-}
+// ✅ For non-module usage — with CDN in <script> in HTML:
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+  const supabase = supabase.createClient('https://xyz.supabase.co', 'public-anon-key');
+</script>
 
 // ✅ Safe DOM usage AFTER client
 document.addEventListener('DOMContentLoaded', function() {
