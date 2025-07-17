@@ -1,11 +1,17 @@
+// script.js - Professional Implementation
 document.addEventListener('DOMContentLoaded', function() {
-    // Verify supabase is loaded
-    if (typeof supabase === 'undefined') {
-        console.error('Supabase not loaded! Check supabase.js is loaded before script.js');
+    // Safety check for Supabase client
+    if (typeof window.supabaseClient === 'undefined') {
+        console.error('Supabase client not initialized. Check:');
+        console.error('1. supabase.js is loaded after @supabase/supabase-js');
+        console.error('2. No errors in supabase.js initialization');
         return;
     }
 
-    // DOM Elements
+    // Reference to the client
+    const supabase = window.supabaseClient;
+
+    // DOM Elements with null checks
     const form = document.getElementById('job-application-form');
     if (!form) {
         console.error('Form element not found');
