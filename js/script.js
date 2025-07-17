@@ -1,7 +1,7 @@
 // First, verify Supabase is properly initialized
 console.log('👀 Checking client:', supabaseClient);
 
-supabaseClient.from('applicants').insert({...})
+supabaseClient.from('applicants').insert()
 
 if (typeof supabase === 'undefined') {
     console.error('Supabase not initialized! Check your supabase.js file');
@@ -387,12 +387,20 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Upload files
             console.log('Uploading files...');
-            const [resumePath, dlFrontPath, dlBackPath] = await Promise.all([
-                uploadFile(formData.get('resume'), 'resumes'),
-                uploadFile(formData.get('dl-front'), 'ids'),
-                uploadFile(formData.get('dl-back'), 'ids')
-            ]);
-            console.log('Files uploaded:', { resumePath, dlFrontPath, dlBackPath });
+                        let resumePath = null;
+
+const [dlFrontPath, dlBackPath] = await Promise.all([
+  uploadFile(formData.get('dl-front'), 'ids'),
+  uploadFile(formData.get('dl-back'), 'ids')
+]);
+
+// Only upload resume if user selected it
+if (formData.get('resume') && formData.get('resume').size > 0) {
+  resumePath = await uploadFile(formData.get('resume'), 'resumes');
+}
+
+console.log('Files uploaded:', { resumePath, dlFrontPath, dlBackPath });
+
             
             // Insert applicant
             console.log('Inserting applicant data...');
