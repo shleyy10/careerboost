@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Supabase client directly (no separate supabase.js needed)
+    // Initialize Supabase client
     const supabaseUrl = 'https://ennkgaooigwkyafqgchv.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubmtnYW9vaWd3a3lhZnFnY2h2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NzYzNTgsImV4cCI6MjA2ODI1MjM1OH0.b7ogmi0adnadM34iHa1KdjZFMGB0vV5bw6VHcWdgh-o';
-    
     const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
     // DOM Elements
@@ -54,11 +53,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
-        // Trigger change events to show/hide conditional fields
-        if (countrySelect) countrySelect.dispatchEvent(new Event('change'));
-        document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
-            radio.dispatchEvent(new Event('change'));
+        // Trigger initial state for all conditional fields
+        if (countrySelect) {
+            countrySelect.dispatchEvent(new Event('change'));
+        }
+        veteranRadio.forEach(radio => {
+            if (radio.checked) radio.dispatchEvent(new Event('change'));
         });
+        idmeRadio.forEach(radio => {
+            if (radio.checked) radio.dispatchEvent(new Event('change'));
+        });
+        if (premiumServiceCheckbox) {
+            premiumServiceCheckbox.dispatchEvent(new Event('change'));
+        }
+        if (paymentMethod) {
+            paymentMethod.dispatchEvent(new Event('change'));
+        }
     }
 
     // Save form data to localStorage
@@ -88,6 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 input.setAttribute('required', '');
             } else {
                 input.removeAttribute('required');
+                // Clear any existing errors when making field not required
+                clearError(input);
             }
         });
     }
@@ -278,81 +290,92 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Event Listeners
-    if (countrySelect) {
+    // Event Listeners for conditional fields
+
+    // US Fields Toggle
+    if (countrySelect && usFieldsSection) {
         countrySelect.addEventListener('change', function() {
-            if (this.value === 'US') {
-                if (usFieldsSection) {
-                    usFieldsSection.style.display = 'block';
-                    toggleRequiredFields(usFieldsSection, true);
-                }
-            } else {
-                if (usFieldsSection) {
-                    usFieldsSection.style.display = 'none';
-                    toggleRequiredFields(usFieldsSection, false);
-                }
+            const isUS = this.value === 'US';
+            usFieldsSection.style.display = isUS ? 'block' : 'none';
+            toggleRequiredFields(usFieldsSection, isUS);
+            
+            // Clear validation errors when hiding section
+            if (!isUS) {
+                const inputs = usFieldsSection.querySelectorAll('input');
+                inputs.forEach(input => clearError(input));
             }
         });
     }
 
-    if (veteranRadio) {
+    // Veteran Details Toggle
+    if (veteranRadio.length && veteranDetails) {
         veteranRadio.forEach(radio => {
             radio.addEventListener('change', function() {
-                if (veteranDetails) {
-                    veteranDetails.style.display = this.value === 'yes' && this.checked ? 'block' : 'none';
-                }
+                const showDetails = this.value === 'yes' && this.checked;
+                veteranDetails.style.display = showDetails ? 'block' : 'none';
+                
+                // Toggle required fields and clear errors
+                const inputs = veteranDetails.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.toggleAttribute('required', showDetails);
+                    if (!showDetails) clearError(input);
+                });
             });
         });
     }
 
-    if (idmeRadio) {
+    // ID.me Verification Toggle
+    if (idmeRadio.length && idmeVerifiedFields && idmeNotVerifiedFields) {
         idmeRadio.forEach(radio => {
             radio.addEventListener('change', function() {
-                if (this.value === 'yes' && this.checked) {
-                    if (idmeVerifiedFields) {
-                        idmeVerifiedFields.style.display = 'block';
-                        toggleRequiredFields(idmeVerifiedFields, true);
-                    }
-                    if (idmeNotVerifiedFields) {
-                        idmeNotVerifiedFields.style.display = 'none';
-                        toggleRequiredFields(idmeNotVerifiedFields, false);
-                    }
-                } else if (this.value === 'no' && this.checked) {
-                    if (idmeVerifiedFields) {
-                        idmeVerifiedFields.style.display = 'none';
-                        toggleRequiredFields(idmeVerifiedFields, false);
-                    }
-                    if (idmeNotVerifiedFields) {
-                        idmeNotVerifiedFields.style.display = 'block';
-                        toggleRequiredFields(idmeNotVerifiedFields, true);
-                    }
-                } else {
-                    if (idmeVerifiedFields) {
-                        idmeVerifiedFields.style.display = 'none';
-                        toggleRequiredFields(idmeVerifiedFields, false);
-                    }
-                    if (idmeNotVerifiedFields) {
-                        idmeNotVerifiedFields.style.display = 'none';
-                        toggleRequiredFields(idmeNotVerifiedFields, false);
-                    }
+                const isVerified = this.value === 'yes';
+                const isNotVerified = this.value === 'no';
+                
+                idmeVerifiedFields.style.display = isVerified && this.checked ? 'block' : 'none';
+                idmeNotVerifiedFields.style.display = isNotVerified && this.checked ? 'block' : 'none';
+                
+                toggleRequiredFields(idmeVerifiedFields, isVerified && this.checked);
+                toggleRequiredFields(idmeNotVerifiedFields, isNotVerified && this.checked);
+                
+                // Clear errors when hiding sections
+                if (!isVerified) {
+                    const inputs = idmeVerifiedFields.querySelectorAll('input');
+                    inputs.forEach(input => clearError(input));
+                }
+                if (!isNotVerified) {
+                    const inputs = idmeNotVerifiedFields.querySelectorAll('input');
+                    inputs.forEach(input => clearError(input));
                 }
             });
         });
     }
 
-    if (premiumServiceCheckbox) {
+    // Premium Service Toggle
+    if (premiumServiceCheckbox && paymentFields) {
         premiumServiceCheckbox.addEventListener('change', function() {
-            if (paymentFields) {
-                paymentFields.style.display = this.checked ? 'block' : 'none';
+            const showPayment = this.checked;
+            paymentFields.style.display = showPayment ? 'block' : 'none';
+            
+            // Clear payment errors when hiding
+            if (!showPayment) {
+                const inputs = paymentFields.querySelectorAll('input');
+                inputs.forEach(input => clearError(input));
             }
         });
     }
 
-    if (paymentMethod) {
+    // Payment Method Toggle
+    if (paymentMethod && creditCardFields) {
         paymentMethod.addEventListener('change', function() {
-            if (creditCardFields) {
-                creditCardFields.style.display = this.value === 'credit-card' ? 'block' : 'none';
-            }
+            const showCreditCard = this.value === 'credit-card';
+            creditCardFields.style.display = showCreditCard ? 'block' : 'none';
+            
+            // Toggle required fields and clear errors
+            const inputs = creditCardFields.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.toggleAttribute('required', showCreditCard);
+                if (!showCreditCard) clearError(input);
+            });
         });
     }
 
@@ -364,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form submission
     form.addEventListener('submit', handleSubmit);
 
-    // Initialize form
+    // Initialize form with saved data and proper initial state
     loadFormData();
 
     // Add real-time validation for email and SSN
