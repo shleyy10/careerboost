@@ -172,12 +172,17 @@ document.addEventListener('DOMContentLoaded', function() {
     countrySelect.addEventListener('change', function() {
   if (countrySelect.value === 'US') {
     usFields.style.display = 'block';
-    usFields.querySelectorAll('input').forEach(el => el.setAttribute('required', 'required'));
+    usFields.querySelectorAll('input').forEach(input => {
+      input.setAttribute('required', 'required');
+    });
   } else {
     usFields.style.display = 'none';
-    usFields.querySelectorAll('input').forEach(el => el.removeAttribute('required'));
+    usFields.querySelectorAll('input').forEach(input => {
+      input.removeAttribute('required');
+    });
   }
 });
+
    
     veteranRadio.forEach(radio => {
         radio.addEventListener('change', function() {
