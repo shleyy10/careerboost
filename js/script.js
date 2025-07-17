@@ -1,12 +1,8 @@
-// ✅ For non-module usage — with CDN in <script> in HTML:
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script>
   const supabase = supabase.createClient('https://xyz.supabase.co', 'public-anon-key');
+  console.log(supabase);
 </script>
-
-// ✅ Safe DOM usage AFTER client
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM fully loaded and parsed'); // Debug confirmation
 
   // DOM Elements with null checks
   const jobForm = document.getElementById('job-application-form');
