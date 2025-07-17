@@ -59,10 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const creditCardFields = document.getElementById('credit-card-fields');
     const submitBtn = document.getElementById('submit-button');
     
-    // Helper Functions
-    function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
+    // Helper Function
     
     function showError(field, message) {
         if (!field) return;
