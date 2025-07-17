@@ -420,3 +420,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+setTimeout(() => {
+        if (typeof loadFormData === 'function') {
+            loadFormData();
+        }
+    }, 100);
+});
