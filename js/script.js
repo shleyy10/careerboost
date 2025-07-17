@@ -166,31 +166,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event Listeners
     if (countrySelect) {
         countrySelect.addEventListener('change', function() {
-            if (usFields) {
-                usFields.style.display = this.value === 'US' ? 'block' : 'none';
-                
-                // Clear US-specific validation when country changes
-                if (this.value !== 'US') {
-                    const usSpecificFields = usFields.querySelectorAll('input, select');
-                    usSpecificFields.forEach(field => {
-                        field.style.borderColor = '';
-                        if (field.nextElementSibling?.classList?.contains('error-message')) {
-                            field.nextElementSibling.remove();
-                        }
-                    });
-                    
-                    const radioGroups = usFields.querySelectorAll('.radio-group');
-                    radioGroups.forEach(group => {
-                        group.style.border = 'none';
-                        group.style.padding = '0';
-                        const errorMsg = group.querySelector('.error-message');
-                        if (errorMsg) errorMsg.remove();
-                    });
-                }
-            }
-        });
-    }
-    
+  if (this.value === 'US') {
+    usFields.style.display = 'block';
+    // Make US fields required
+    usFields.querySelectorAll('input, select, textarea').forEach(el => {
+      el.setAttribute('required', 'required');
+    });
+  } else {
+    usFields.style.display = 'none';
+    // Remove required from hidden fields
+    usFields.querySelectorAll('input, select, textarea').forEach(el => {
+      el.removeAttribute('required');
+    });
+  }
+});    
     veteranRadio.forEach(radio => {
         radio.addEventListener('change', function() {
             if (veteranDetails) {
@@ -565,6 +554,7 @@ console.log('Files uploaded:', { resumePath, dlFrontPath, dlBackPath });
     
     // Initialize form state
     initializeForm();
+    }
 });
 
 // Final initialization check
