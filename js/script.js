@@ -169,22 +169,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Event Listeners
-    if (countrySelect) {
-        countrySelect.addEventListener('change', function() {
-  if (this.value === 'US') {
+    countrySelect.addEventListener('change', function() {
+  if (countrySelect.value === 'US') {
     usFields.style.display = 'block';
-    // Make US fields required
-    usFields.querySelectorAll('input, select, textarea').forEach(el => {
-      el.setAttribute('required', 'required');
-    });
+    usFields.querySelectorAll('input').forEach(el => el.setAttribute('required', 'required'));
   } else {
     usFields.style.display = 'none';
-    // Remove required from hidden fields
-    usFields.querySelectorAll('input, select, textarea').forEach(el => {
-      el.removeAttribute('required');
-    });
+    usFields.querySelectorAll('input').forEach(el => el.removeAttribute('required'));
   }
-});    
+});
+   
     veteranRadio.forEach(radio => {
         radio.addEventListener('change', function() {
             if (veteranDetails) {
