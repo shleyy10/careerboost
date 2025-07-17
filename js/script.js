@@ -3,7 +3,20 @@
   const supabase = supabase.createClient('https://xyz.supabase.co', 'public-anon-key');
   console.log(supabase);
 </script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const countrySelect = document.getElementById('country');
+    const usFields = document.getElementById('us-fields');
 
+    if (countrySelect && usFields) {
+      countrySelect.addEventListener('change', function() {
+        if (this.value === 'US') {
+          usFields.style.display = 'block';
+        } else {
+          usFields.style.display = 'none';
+        }
+      });
+    }
+  });
   // DOM Elements with null checks
   const jobForm = document.getElementById('job-application-form');
   if (!jobForm) {
