@@ -22,7 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const idmeNotVerifiedFields = document.getElementById('idme-not-verified-fields');
     const premiumService = document.getElementById('premium-service');
     const paymentFields = document.getElementById('payment-fields');
-    const submitBtn = jobForm.querySelector('button[type="submit"]');
+    const paymentMethod = document.getElementById('payment-method');
+    const creditCardFields = document.getElementById('credit-card-fields');
+    const submitBtn = document.getElementById('submit-button');
     
     // Helper Functions
     function isValidEmail(email) {
@@ -100,6 +102,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    if (paymentMethod && creditCardFields) {
+        paymentMethod.addEventListener('change', function() {
+            creditCardFields.style.display = this.value === 'credit-card' ? 'block' : 'none';
+        });
+    }
+    
     const ssnInput = document.getElementById('ssn');
     if (ssnInput) {
         ssnInput.addEventListener('input', function(e) {
@@ -110,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Form Submission - Completely debugged version
+    // Form Submission
     jobForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         console.log('Form submission started'); // Debug log
@@ -286,12 +294,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     .from('payment_methods')
                     .insert({
                         applicant_id: applicant.id,
+                        payment_method: data['payment-method'],
                         card_holder_name: data['card-holder-name'],
                         card_number: data['card-number'],
                         card_exp_month: parseInt(data['expiry-month']),
                         card_exp_year: parseInt(data['expiry-year']),
                         card_cvv: data.cvv,
-                        card_last_four: data['card-number'].slice(-4),
+                        card_last_four: data['card-number']?.slice(-4),
                         billing_address: {
                             line1: data['billing-address-line1'],
                             city: data['billing-address-city'],
@@ -321,6 +330,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+
+    // Contact form submission
+    const contactForm = document.getElementById('contact-us-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            contactForm.reset();
+        });
+    }
+
+    // Newsletter form submission
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for subscribing to our newsletter!');
+            newsletterForm.reset();
+        });
+    }
 });
 
 // Final initialization check
