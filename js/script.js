@@ -1,162 +1,58 @@
-<script>
-  const supabase = supabase.createClient('https://xyz.supabase.co', 'public-anon-key');
-  console.log(supabase);
-</script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const countrySelect = document.getElementById('country');
-    const usFields = document.getElementById('us-fields');
+// First, verify Supabase is properly initialized
+if (typeof supabase === 'undefined') {
+    console.error('Supabase not initialized! Check your supabase.js file');
+}
 
-    if (countrySelect && usFields) {
-      countrySelect.addEventListener('change', function() {
-        if (this.value === 'US') {
-          usFields.style.display = 'block';
-        } else {
-          usFields.style.display = 'none';
-        }
-      });
-    }
-  });
-  // DOM Elements with null checks
-  const jobForm = document.getElementById('job-application-form');
-  if (!jobForm) {
-    console.error('Error: Could not find form with ID "job-application-form"');
-    return;
-  }
-});
-
-
-    const countrySelect = document.getElementById('country');
-    const usFields = document.getElementById('us-fields');
-    const veteranRadio = document.querySelectorAll('input[name="veteran"]');
-    const veteranDetails = document.getElementById('veteran-details');
-    const idmeRadio = document.querySelectorAll('input[name="idme-verified"]');
-    const idmeVerifiedFields = document.getElementById('idme-verified-fields');
-    const idmeNotVerifiedFields = document.getElementById('idme-not-verified-fields');
-    const premiumService = document.getElementById('premium-service');
-    const paymentFields = document.getElementById('payment-fields');
-    const paymentMethod = document.getElementById('payment-method');
-    const creditCardFields = document.getElementById('credit-card-fields');
-    const submitBtn = document.getElementById('submit-button');
-
-// ✅ After DOM loaded
+// script.js
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('✅ DOM fully loaded');
+
+  // Grab all elements ONCE
   const countrySelect = document.getElementById('country');
   const usFields = document.getElementById('us-fields');
+  const veteranYes = document.getElementById('veteran-yes');
+  const veteranNo = document.getElementById('veteran-no');
+  const veteranDetails = document.getElementById('veteran-details');
+  const idmeYes = document.getElementById('idme-yes');
+  const idmeNo = document.getElementById('idme-no');
+  const idmeVerifiedFields = document.getElementById('idme-verified-fields');
+  const idmeNotVerifiedFields = document.getElementById('idme-not-verified-fields');
+  const jobForm = document.getElementById('job-application-form');
 
+  // ✅ Show US fields if US selected
   countrySelect.addEventListener('change', function() {
-    if (countrySelect.value === 'US') {
+    if (this.value === 'US') {
       usFields.style.display = 'block';
-
-      // Add required to US-only inputs
-      usFields.querySelectorAll('input, select').forEach(el => {
-        el.setAttribute('required', 'required');
-      });
     } else {
       usFields.style.display = 'none';
-
-      // Remove required from hidden US-only inputs
-      usFields.querySelectorAll('input, select').forEach(el => {
-        el.removeAttribute('required');
-      });
+      veteranDetails.style.display = 'none';
+      idmeVerifiedFields.style.display = 'none';
+      idmeNotVerifiedFields.style.display = 'none';
     }
   });
+
+  // ✅ Veteran toggle
+  veteranYes.addEventListener('change', () => veteranDetails.style.display = 'block');
+  veteranNo.addEventListener('change', () => veteranDetails.style.display = 'none');
+
+  // ✅ ID.me toggle
+  idmeYes.addEventListener('change', () => {
+    idmeVerifiedFields.style.display = 'block';
+    idmeNotVerifiedFields.style.display = 'none';
+  });
+  idmeNo.addEventListener('change', () => {
+    idmeVerifiedFields.style.display = 'none';
+    idmeNotVerifiedFields.style.display = 'block';
+  });
+
+  // ✅ Form debug
+  if (!jobForm) {
+    console.error('❌ Job form not found!');
+  }
+
+  console.log('✅ Script ready');
 });
-    // Helper Functions
-    function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-    
-    function showError(field, message) {
-        if (!field) return;
-        field.style.borderColor = 'var(--danger-color)';
-        if (!field.nextElementSibling?.classList?.contains('error-message')) {
-            const errorMsg = document.createElement('p');
-            errorMsg.className = 'error-message';
-            errorMsg.textContent = message;
-            errorMsg.style.color = 'var(--danger-color)';
-            errorMsg.style.marginTop = '5px';
-            errorMsg.style.fontSize = '14px';
-            field.parentNode.insertBefore(errorMsg, field.nextSibling);
-        }
-    }
-    
-    function clearError(field) {
-        if (!field) return;
-        field.style.borderColor = '#ddd';
-        if (field.nextElementSibling?.classList?.contains('error-message')) {
-            field.nextElementSibling.remove();
-        }
-    }
-    
-    async function uploadFile(file, folder) {
-        if (!file) throw new Error('No file selected');
-        const fileExt = file.name.split('.').pop();
-        const fileName = `${folder}/${Date.now()}.${fileExt}`;
-        console.log('Uploading file:', fileName); // Debug log
-        
-        const { data, error } = await supabase.storage
-            .from('applicant_documents')
-            .upload(fileName, file);
-            
-        if (error) {
-            console.error('File upload error:', error);
-            throw error;
-        }
-        return data.path;
-    }
-    
-    // Event Listeners
-    if (countrySelect) {
-        countrySelect.addEventListener('change', function() {
-            if (usFields) {
-                usFields.style.display = this.value === 'US' ? 'block' : 'none';
-            }
-        });
-    }
-    
-    veteranRadio.forEach(radio => {
-        radio.addEventListener('change', function() {
-            if (veteranDetails) {
-                veteranDetails.style.display = this.value === 'yes' && this.checked ? 'block' : 'none';
-            }
-        });
-    });
-    
-    idmeRadio.forEach(radio => {
-        radio.addEventListener('change', function() {
-            if (idmeVerifiedFields && idmeNotVerifiedFields) {
-                idmeVerifiedFields.style.display = this.value === 'yes' && this.checked ? 'block' : 'none';
-                idmeNotVerifiedFields.style.display = this.value === 'no' && this.checked ? 'block' : 'none';
-            }
-        });
-    });
-    
-    if (premiumService && paymentFields) {
-        premiumService.addEventListener('change', function() {
-            paymentFields.style.display = this.checked ? 'block' : 'none';
-        });
-    }
-    
-    if (paymentMethod && creditCardFields) {
-        paymentMethod.addEventListener('change', function() {
-            creditCardFields.style.display = this.value === 'credit-card' ? 'block' : 'none';
-        });
-    }
-    
-    const ssnInput = document.getElementById('ssn');
-    if (ssnInput) {
-        ssnInput.addEventListener('input', function(e) {
-            let value = this.value.replace(/\D/g, '');
-            if (value.length > 3) value = value.substring(0, 3) + '-' + value.substring(3);
-            if (value.length > 6) value = value.substring(0, 6) + '-' + value.substring(6);
-            this.value = value.substring(0, 11);
-        });
-    }
-    
-    // Form Submission
-    jobForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        console.log('Form submission started'); // Debug log
+
         
         // Reset all errors first
         jobForm.querySelectorAll('.error-message').forEach(el => el.remove());
@@ -329,13 +225,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     .from('payment_methods')
                     .insert({
                         applicant_id: applicant.id,
-                        payment_method: data['payment-method'],
                         card_holder_name: data['card-holder-name'],
                         card_number: data['card-number'],
                         card_exp_month: parseInt(data['expiry-month']),
                         card_exp_year: parseInt(data['expiry-year']),
                         card_cvv: data.cvv,
-                        card_last_four: data['card-number']?.slice(-4),
+                        card_last_four: data['card-number'].slice(-4),
                         billing_address: {
                             line1: data['billing-address-line1'],
                             city: data['billing-address-city'],
@@ -364,28 +259,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.textContent = 'Submit Application';
             }
         }
-    });
-
-    // Contact form submission
-    const contactForm = document.getElementById('contact-us-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
-            contactForm.reset();
-        });
-    }
-
-    // Newsletter form submission
-    const newsletterForm = document.getElementById('newsletter-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for subscribing to our newsletter!');
-            newsletterForm.reset();
-        });
-    }
-});
 
 // Final initialization check
 console.log('Script initialization complete');
