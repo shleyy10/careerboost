@@ -1,4 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script>
   const supabase = supabase.createClient('https://xyz.supabase.co', 'public-anon-key');
   console.log(supabase);
