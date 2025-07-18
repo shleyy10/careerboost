@@ -1,3 +1,4 @@
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 // Complete Job Application Form Handler
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Document ready, initializing application...');
