@@ -1,9 +1,36 @@
-// Complete solution for US-specific form handling with Supabase integration
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Supabase client
-    const supabaseUrl = 'https://ennkgaooigwkyafqgchv.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubmtnYW9vaWd3a3lhZnFnY2h2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NzYzNTgsImV4cCI6MjA2ODI1MjM1OH0.b7ogmi0adnadM34iHa1KdjZFMGB0vV5bw6VHcWdgh-o';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    // Load Supabase client dynamically if needed
+    function ensureSupabaseLoaded() {
+        return new Promise((resolve) => {
+            if (typeof supabase !== 'undefined') {
+                resolve();
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+            script.onload = resolve;
+            script.onerror = () => {
+                console.error('Failed to load Supabase library');
+                resolve(false);
+            };
+            document.head.appendChild(script);
+        });
+    }
+
+    async function initializeApplication() {
+        const isLoaded = await ensureSupabaseLoaded();
+        if (!isLoaded) {
+            alert('Failed to load required resources. Please try again.');
+            return;
+        }
+
+        // Now safe to initialize
+        const supabaseUrl = 'https://ennkgaooigwkyafqgchv.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubmtnYW9vaWd3a3lhZnFnY2h2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NzYzNTgsImV4cCI6MjA2ODI1MjM1OH0.b7ogmi0adnadM34iHa1KdjZFMGB0vV5bw6VHcWdgh-o';
+        
+        try {
+            const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
     // DOM Elements
     const form = document.getElementById('job-application-form');
@@ -18,6 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const idmeVerifiedFields = document.getElementById('idme-verified-fields');
     const idmeNotVerifiedFields = document.getElementById('idme-not-verified-fields');
     const submitButton = document.getElementById('submit-button');
+
+            
 
     // Initialize form state
     let formData = {};
