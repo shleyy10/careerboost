@@ -215,64 +215,7 @@ try {
             });
         });
     }
-
-
-    // Add this code before your form submission handler
-async function initializeStorageBucket() {
-    try {
-        const { data, error } = await supabase
-            .storage
-            .createBucket('applications', {
-                public: false,
-                allowedMimeTypes: ['application/pdf', 'image/jpeg', 'image/png'],
-                fileSizeLimit: 5 // 5MB limit
-            });
-
-        if (error && error.message !== 'Bucket already exists') {
-            throw error;
-        }
-        
-        console.log('Storage bucket ready');
-    } catch (error) {
-        console.error('Storage initialization error:', error);
-        showErrorNotification('Failed to initialize storage. Please contact support.');
-    }
-}
-
-// Call this when your app initializes
-initializeStorageBucket();
-
-
-    async function uploadFileToSupabase(file) {
-    if (!file) return null;
-
-    try {
-        const fileExtension = file.name.split('.').pop();
-        const fileName = `documents/${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExtension}`;
-        
-        // First try to upload
-        let { data, error } = await supabase.storage
-            .from('applications')
-            .upload(fileName, file);
-        
-        // If bucket doesn't exist, create it and try again
-        if (error && error.message.includes('Bucket not found')) {
-            await initializeStorageBucket();
-            
-            // Retry the upload
-            ({ data, error } = await supabase.storage
-                .from('applications')
-                .upload(fileName, file));
-        }
-        
-        if (error) throw error;
-        
-        return data.path;
-    } catch (error) {
-        console.error('File upload error:', error);
-        throw error;
-    }
-}
+    
     function setupFormSubmissionHandler() {
         jobApplicationForm.addEventListener('submit', async function(event) {
             event.preventDefault();
