@@ -9,22 +9,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const STORAGE_BUCKET = 'applications';
 
     // Initialize Supabase client with error handling
-    // Initialize Supabase client with error handling
-let supabase;
-try {
-    // Check if supabase is available in global scope
-    if (typeof supabase === 'undefined' && typeof window.supabase === 'undefined') {
-        throw new Error('Supabase library not loaded');
+    let supabase;
+    try {
+        if (typeof supabase === 'undefined') {
+            throw new Error('Supabase library not loaded');
+        }
+        supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        console.log('Supabase client initialized successfully');
+    } catch (error) {
+        console.error('Supabase initialization failed:', error);
+        showErrorNotification('Failed to initialize application. Please refresh the page.');
+        return;
     }
-    
-    // Use the global supabase reference to create client
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    console.log('Supabase client initialized successfully');
-} catch (error) {
-    console.error('Supabase initialization failed:', error);
-    showErrorNotification('Failed to initialize application. Please refresh the page.');
-    return;
-}
+
     // Get form element
     const jobApplicationForm = document.getElementById('job-application-form');
     if (!jobApplicationForm) {
@@ -215,7 +212,7 @@ try {
             });
         });
     }
-    
+
     function setupFormSubmissionHandler() {
         jobApplicationForm.addEventListener('submit', async function(event) {
             event.preventDefault();
