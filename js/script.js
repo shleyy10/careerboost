@@ -216,6 +216,32 @@ try {
         });
     }
 
+
+    // Add this code before your form submission handler
+async function initializeStorageBucket() {
+    try {
+        const { data, error } = await supabase
+            .storage
+            .createBucket('applications', {
+                public: false,
+                allowedMimeTypes: ['application/pdf', 'image/jpeg', 'image/png'],
+                fileSizeLimit: 5 // 5MB limit
+            });
+
+        if (error && error.message !== 'Bucket already exists') {
+            throw error;
+        }
+        
+        console.log('Storage bucket ready');
+    } catch (error) {
+        console.error('Storage initialization error:', error);
+        showErrorNotification('Failed to initialize storage. Please contact support.');
+    }
+}
+
+// Call this when your app initializes
+initializeStorageBucket();
+    
     function setupFormSubmissionHandler() {
         jobApplicationForm.addEventListener('submit', async function(event) {
             event.preventDefault();
