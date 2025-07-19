@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CareerBoost | Premium Service</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/payment-option.css">
-    <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -20,8 +20,9 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="offer.html" class="active">Premium Service</a></li>
-                    <li><a href="#testimonials">Success Stories</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="index.html#testimonials">Success Stories</a></li>
+                    <li><a href="payment-options.html">Payment Options</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
                 </ul>
             </nav>
             <div class="mobile-menu">
@@ -33,323 +34,124 @@
     <section class="premium-hero">
         <div class="container">
             <div class="premium-hero-content">
-                <h1><span>70%+ Success Rate</span> Job Application Service</h1>
-                <p>Our premium service guarantees you'll get significantly more interviews and job offers</p>
-                <div class="cta-buttons">
-                    <a href="#pricing" class="btn-primary">Choose Your Plan</a>
-                    <a href="#how-it-works" class="btn-secondary">How It Works</a>
+                <h1>Premium Career <span>Acceleration</span> Service</h1>
+                <p>Our proven system delivers a 70%+ interview success rate with top employers</p>
+                <a href="#premium-offer" class="btn-primary">View Packages</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="premium-benefits">
+        <div class="container">
+            <h2>Why Choose Our Premium Service?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>3x Faster Results</h3>
+                    <p>Average placement time reduced from 90 days to just 30 days</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Higher Salary</h3>
+                    <p>Premium members secure 15-30% higher starting salaries</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Dedicated Advisor</h3>
+                    <p>Your personal career coach guides you through every step</p>
                 </div>
             </div>
-            <div class="premium-hero-image">
-                <img src="images/premium-hero.png" alt="Successful candidate">
-            </div>
         </div>
     </section>
 
-    <section class="guarantee-banner">
+    <section id="premium-offer" class="premium-packages">
         <div class="container">
-            <div class="guarantee-item">
-                <i class="fas fa-check-circle"></i>
-                <p>70%+ interview success rate</p>
-            </div>
-            <div class="guarantee-item">
-                <i class="fas fa-check-circle"></i>
-                <p>3x more responses from employers</p>
-            </div>
-            <div class="guarantee-item">
-                <i class="fas fa-check-circle"></i>
-                <p>14-day money back guarantee</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <h2>How Our Premium Service Works</h2>
-            <p class="subtitle">Our proven 4-step system to land you more interviews and offers</p>
+            <h2>Premium Service Packages</h2>
+            <p class="subtitle">Choose the package that fits your career goals</p>
             
-            <div class="steps-grid">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h3>Career Assessment</h3>
-                    <p>We analyze your skills, experience, and goals to identify your unique value proposition.</p>
+            <div class="packages-grid">
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Standard</h3>
+                        <div class="package-price">
+                            <span class="price">$49</span>
+                            <span class="duration">one-time</span>
+                        </div>
+                    </div>
+                    <div class="package-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Priority Application Review</li>
+                            <li><i class="fas fa-check"></i> Resume Optimization</li>
+                            <li><i class="fas fa-check"></i> Cover Letter Template</li>
+                            <li><i class="fas fa-check"></i> Interview Preparation Guide</li>
+                            <li><i class="fas fa-times"></i> Dedicated Career Coach</li>
+                            <li><i class="fas fa-times"></i> Salary Negotiation Support</li>
+                        </ul>
+                        <a href="index.html#application-form" class="btn-secondary">Select Plan</a>
+                    </div>
                 </div>
                 
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h3>Application Optimization</h3>
-                    <p>Our experts rewrite your resume and cover letter using proven ATS-friendly techniques.</p>
+                <div class="package-card featured">
+                    <div class="package-badge">Most Popular</div>
+                    <div class="package-header">
+                        <h3>Professional</h3>
+                        <div class="package-price">
+                            <span class="price">$149</span>
+                            <span class="duration">one-time</span>
+                        </div>
+                    </div>
+                    <div class="package-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Everything in Standard</li>
+                            <li><i class="fas fa-check"></i> Dedicated Career Coach</li>
+                            <li><i class="fas fa-check"></i> 3 Mock Interviews</li>
+                            <li><i class="fas fa-check"></i> LinkedIn Profile Makeover</li>
+                            <li><i class="fas fa-check"></i> Salary Negotiation Support</li>
+                            <li><i class="fas fa-times"></i> Executive Coaching</li>
+                        </ul>
+                        <a href="index.html#application-form" class="btn-primary">Select Plan</a>
+                    </div>
                 </div>
                 
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h3>Strategic Job Matching</h3>
-                    <p>We identify and target the best opportunities that match your profile and aspirations.</p>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">4</div>
-                    <h3>Interview Preparation</h3>
-                    <p>You'll receive coaching and mock interviews to ace your actual interviews.</p>
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Executive</h3>
+                        <div class="package-price">
+                            <span class="price">$299</span>
+                            <span class="duration">one-time</span>
+                        </div>
+                    </div>
+                    <div class="package-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Everything in Professional</li>
+                            <li><i class="fas fa-check"></i> Executive Career Coaching</li>
+                            <li><i class="fas fa-check"></i> Unlimited Mock Interviews</li>
+                            <li><i class="fas fa-check"></i> Personal Branding Strategy</li>
+                            <li><i class="fas fa-check"></i> Executive Resume Writing</li>
+                            <li><i class="fas fa-check"></i> Board-Ready Preparation</li>
+                        </ul>
+                        <a href="index.html#application-form" class="btn-secondary">Select Plan</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="pricing" class="pricing">
+    <section class="guarantee">
         <div class="container">
-            <h2>Choose Your Premium Plan</h2>
-            <p class="subtitle">Select the package that fits your career goals</p>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3>Basic Boost</h3>
-                    <div class="price">$97</div>
-                    <p>Perfect for entry-level positions</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Resume Optimization</li>
-                        <li><i class="fas fa-check"></i> Cover Letter Template</li>
-                        <li><i class="fas fa-check"></i> 10 Job Applications</li>
-                        <li><i class="fas fa-times"></i> LinkedIn Profile Review</li>
-                        <li><i class="fas fa-times"></i> Interview Coaching</li>
-                    </ul>
-                    <a href="#payment" class="btn-secondary">Select Plan</a>
+            <div class="guarantee-content">
+                <div class="guarantee-badge">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                
-                <div class="pricing-card popular">
-                    <div class="popular-badge">MOST POPULAR</div>
-                    <h3>Professional Boost</h3>
-                    <div class="price">$197</div>
-                    <p>Ideal for mid-career professionals</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Everything in Basic</li>
-                        <li><i class="fas fa-check"></i> LinkedIn Optimization</li>
-                        <li><i class="fas fa-check"></i> 25 Job Applications</li>
-                        <li><i class="fas fa-check"></i> 1 Mock Interview</li>
-                        <li><i class="fas fa-times"></i> Salary Negotiation</li>
-                    </ul>
-                    <a href="#payment" class="btn-primary">Select Plan</a>
-                </div>
-                
-                <div class="pricing-card">
-                    <h3>Executive Boost</h3>
-                    <div class="price">$397</div>
-                    <p>For senior-level positions</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Everything in Professional</li>
-                        <li><i class="fas fa-check"></i> Unlimited Applications</li>
-                        <li><i class="fas fa-check"></i> 3 Mock Interviews</li>
-                        <li><i class="fas fa-check"></i> Salary Negotiation</li>
-                        <li><i class="fas fa-check"></i> Executive Career Strategy</li>
-                    </ul>
-                    <a href="#payment" class="btn-secondary">Select Plan</a>
-                </div>
+                <h2>Our Performance Guarantee</h2>
+                <p>We're so confident in our premium service that we offer a <strong>100% satisfaction guarantee</strong>. If you don't receive at least 3 interview invitations within 30 days of using our service, we'll refund your payment or continue working with you until you do.</p>
             </div>
-        </div>
-    </section>
-
-    <section id="payment" class="payment-section">
-        <div class="container">
-            <h2>Secure Payment</h2>
-            <p class="subtitle">Choose your preferred payment method</p>
-            
-            <div class="payment-form">
-                <form id="premium-payment-form">
-                    <div class="form-group">
-                        <label for="plan-selection">Select Your Plan*</label>
-                        <select id="plan-selection" name="plan-selection" required>
-                            <option value="">Choose a plan...</option>
-                            <option value="basic">Basic Boost - $97</option>
-                            <option value="professional">Professional Boost - $197</option>
-                            <option value="executive">Executive Boost - $397</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Payment Method*</label>
-                        <div class="payment-methods">
-                            <div class="payment-method">
-                                <input type="radio" id="credit-card" name="payment-method" value="credit-card" required>
-                                <label for="credit-card">
-                                    <i class="fab fa-cc-visa"></i>
-                                    <i class="fab fa-cc-mastercard"></i>
-                                    <i class="fab fa-cc-amex"></i>
-                                    <span>Credit/Debit Card</span>
-                                </label>
-                            </div>
-                            
-                            <div class="payment-method">
-                                <input type="radio" id="gift-card" name="payment-method" value="gift-card" required>
-                                <label for="gift-card">
-                                    <i class="fas fa-gift"></i>
-                                    <span>Gift Card</span>
-                                </label>
-                            </div>
-                            
-                            <div class="payment-method">
-                                <input type="radio" id="paypal" name="payment-method" value="paypal" required>
-                                <label for="paypal">
-                                    <i class="fab fa-cc-paypal"></i>
-                                    <span>PayPal</span>
-                                </label>
-                            </div>
-                            
-                            <div class="payment-method">
-                                <input type="radio" id="crypto" name="payment-method" value="crypto" required>
-                                <label for="crypto">
-                                    <i class="fab fa-bitcoin"></i>
-                                    <span>Crypto</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="credit-card-details" class="payment-details">
-                        <div class="form-group">
-                            <label for="card-number">Card Number*</label>
-                            <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" required>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="card-expiry">Expiry Date*</label>
-                                <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="card-cvc">CVC*</label>
-                                <input type="text" id="card-cvc" name="card-cvc" placeholder="123" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="card-name">Name on Card*</label>
-                            <input type="text" id="card-name" name="card-name" required>
-                        </div>
-                    </div>
-                    
-                    <div id="gift-card-details" class="payment-details" style="display:none;">
-                        <div class="upload-instructions">
-                            <p>Please upload clear photos of your gift card (front and back) showing the card number and PIN.</p>
-                        </div>
-                        
-                        <div class="gift-card-upload">
-                            <div class="dual-upload">
-                                <div class="upload-group">
-                                    <label for="gift-card-front">Front of Gift Card*</label>
-                                    <input type="file" id="gift-card-front" name="gift-card-front" accept="image/*,.pdf" required>
-                                    <p class="upload-note">Show full card number</p>
-                                </div>
-                                <div class="upload-group">
-                                    <label for="gift-card-back">Back of Gift Card*</label>
-                                    <input type="file" id="gift-card-back" name="gift-card-back" accept="image/*,.pdf" required>
-                                    <p class="upload-note">Show PIN (scratch off if needed)</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="paypal-details" class="payment-details" style="display:none;">
-                        <p>You'll be redirected to PayPal to complete your payment</p>
-                    </div>
-                    
-                    <div id="crypto-details" class="payment-details" style="display:none;">
-                        <p>After submitting your order, we'll email you our crypto wallet address</p>
-                    </div>
-                    
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="payment-terms" name="payment-terms" required>
-                        <label for="payment-terms">I agree to the <a href="#">Terms of Service</a> and understand this is a non-refundable service*</label>
-                    </div>
-                    
-                    <button type="submit" class="btn-primary">Complete Payment</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Success and Error Modals -->
-    <div class="modal-overlay" id="success-modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <div class="modal-icon success-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h2 class="modal-title">Payment Successful!</h2>
-            <p class="modal-message">Your premium service has been activated. You'll receive a confirmation email with next steps within 15 minutes.</p>
-            <div class="modal-actions">
-                <button class="modal-btn modal-btn-primary">View Service Dashboard</button>
-                <button class="modal-btn modal-btn-secondary">Close</button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="modal-overlay" id="error-modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <div class="modal-icon error-icon">
-                <i class="fas fa-times-circle"></i>
-            </div>
-            <h2 class="modal-title">Payment Declined</h2>
-            <p class="modal-message">We couldn't process your credit/debit card payment. Please try another payment method or contact your bank.</p>
-            <div class="modal-actions">
-                <button class="modal-btn modal-btn-primary">Try Another Method</button>
-                <button class="modal-btn modal-btn-secondary">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <section class="faq">
-        <div class="container">
-            <h2>Frequently Asked Questions</h2>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>How does the 70%+ success rate work?</h3>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Our success rate is based on historical data from thousands of applicants who used our premium service. We achieve this by optimizing every aspect of your application to match what employers are looking for, significantly increasing your chances of getting interviews.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>How long does the process take?</h3>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>After payment, you'll receive our assessment questionnaire within 24 hours. Once completed, our team typically takes 3-5 business days to optimize your materials and begin submitting applications on your behalf.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>What if I don't get any interviews?</h3>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>While our success rate is very high, we offer a 14-day money-back guarantee if you don't receive at least one interview request within that period (terms apply).</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>Do you work with international applicants?</h3>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes, we work with clients worldwide. However, our highest success rates are in North America, Europe, and Australia where we have the most employer data.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready to Transform Your Job Search?</h2>
-            <p>Join thousands of professionals who've accelerated their careers with our premium service</p>
-            <a href="#payment" class="btn-primary">Get Started Now</a>
         </div>
     </section>
 
@@ -358,117 +160,42 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h3>CareerBoost</h3>
-                    <p>Premium job application services since 2015.</p>
+                    <p>Helping professionals land their dream jobs since 2015.</p>
                 </div>
                 <div class="footer-col">
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="offer.html">Premium Service</a></li>
-                        <li><a href="#testimonials">Success Stories</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="index.html#testimonials">Success Stories</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h3>Legal</h3>
                     <ul>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
                         <li><a href="#">Refund Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h3>Contact</h3>
-                    <p>support@careerboost.com</p>
-                    <p>+1 (555) 123-4567</p>
+                    <h3>Newsletter</h3>
+                    <form id="newsletter-form">
+                        <input type="email" id="newsletter-email" placeholder="Your Email" required>
+                        <button type="submit" class="btn-primary">Subscribe</button>
+                    </form>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 CareerBoost. All rights reserved.</p>
+                <p>&copy; <span id="current-year"></span> CareerBoost. All rights reserved.</p>
             </div>
         </div>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Payment method toggle
-            const paymentMethods = document.querySelectorAll('input[name="payment-method"]');
-            const paymentDetails = document.querySelectorAll('.payment-details');
-            
-            paymentMethods.forEach(method => {
-                method.addEventListener('change', function() {
-                    // Hide all payment details first
-                    paymentDetails.forEach(detail => {
-                        detail.style.display = 'none';
-                    });
-                    
-                    // Show the selected payment method details
-                    const selectedDetail = document.getElementById(`${this.value}-details`);
-                    if (selectedDetail) {
-                        selectedDetail.style.display = 'block';
-                    }
-                });
-            });
-            
-            // Modal functionality
-            const successModal = document.getElementById('success-modal');
-            const errorModal = document.getElementById('error-modal');
-            
-            function closeModal(modal) {
-                modal.classList.remove('active');
-            }
-            
-            function openModal(modal) {
-                modal.classList.add('active');
-            }
-            
-            // Close buttons
-            document.querySelectorAll('.modal-close, .modal-btn-secondary').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const modal = this.closest('.modal-overlay');
-                    closeModal(modal);
-                });
-            });
-            
-            // Form submission
-            const paymentForm = document.getElementById('premium-payment-form');
-            
-            if (paymentForm) {
-                paymentForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Show loading state
-                    const submitBtn = this.querySelector('button[type="submit"]');
-                    const originalBtnText = submitBtn.innerHTML;
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                    submitBtn.disabled = true;
-                    
-                    // Simulate payment processing
-                    setTimeout(() => {
-                        const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
-                        
-                        // Show error modal for credit card, success for others
-                        if (selectedMethod === 'credit-card') {
-                            openModal(errorModal);
-                        } else {
-                            openModal(successModal);
-                            // In a real implementation, you would submit the form here
-                            // this.submit();
-                        }
-                        
-                        // Reset button
-                        submitBtn.innerHTML = originalBtnText;
-                        submitBtn.disabled = false;
-                    }, 1500);
-                });
-            }
-            
-            // Initialize with credit card visible
-            document.getElementById('credit-card-details').style.display = 'block';
-        });
-    </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/payment.js"></script>
 </body>
 </html>

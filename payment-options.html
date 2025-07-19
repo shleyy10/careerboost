@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Options | CareerBoost</title>
+    <title>CareerBoost | Payment Options</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/payment-option.css">
-    <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -20,8 +20,9 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="offer.html">Premium Service</a></li>
+                    <li><a href="index.html#testimonials">Success Stories</a></li>
                     <li><a href="payment-options.html" class="active">Payment Options</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
                 </ul>
             </nav>
             <div class="mobile-menu">
@@ -32,68 +33,66 @@
 
     <section class="payment-hero">
         <div class="container">
-            <div class="payment-hero-content">
-                <h1>Secure Payment Options</h1>
-                <p>Choose the payment method that works best for you</p>
-            </div>
+            <h1>Flexible <span>Payment</span> Options</h1>
+            <p>Choose the payment method that works best for you</p>
         </div>
     </section>
 
     <section class="payment-methods">
         <div class="container">
-            <div class="payment-method-card">
-                <div class="method-header">
-                    <div class="method-icons">
+            <h2>Accepted Payment Methods</h2>
+            <div class="methods-grid">
+                <div class="method-card">
+                    <div class="method-icon">
                         <i class="fab fa-cc-visa"></i>
-                        <i class="fab fa-cc-mastercard"></i>
-                        <i class="fab fa-cc-amex"></i>
                     </div>
                     <h3>Credit/Debit Cards</h3>
+                    <p>Visa, Mastercard, American Express, Discover</p>
                 </div>
-                <div class="method-content">
-                    <p>Pay securely using your Visa, Mastercard, or American Express card.</p>
-                    <ul class="method-features">
-                        <li><i class="fas fa-check"></i> Instant processing</li>
-                        <li><i class="fas fa-check"></i> Secure encryption</li>
-                        <li><i class="fas fa-check"></i> Receipt emailed</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="payment-method-card">
-                <div class="method-header">
-                    <div class="method-icons">
-                        <i class="fab fa-cc-paypal"></i>
+                <div class="method-card">
+                    <div class="method-icon">
+                        <i class="fab fa-paypal"></i>
                     </div>
                     <h3>PayPal</h3>
+                    <p>Secure payments through PayPal</p>
                 </div>
-                <div class="method-content">
-                    <p>Pay using your PayPal account or credit/debit card through PayPal's secure system.</p>
-                    <ul class="method-features">
-                        <li><i class="fas fa-check"></i> No account required</li>
-                        <li><i class="fas fa-check"></i> Buyer protection</li>
-                        <li><i class="fas fa-check"></i> Instant processing</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="payment-method-card">
-                <div class="method-header">
-                    <div class="method-icons">
+                <div class="method-card">
+                    <div class="method-icon">
                         <i class="fas fa-gift"></i>
                     </div>
                     <h3>Gift Cards</h3>
+                    <p>Major retailer gift cards accepted</p>
                 </div>
-                <div class="method-content">
-                    <p>Use prepaid Visa, Mastercard, or American Express gift cards.</p>
-                    <ul class="method-features">
-                        <li><i class="fas fa-check"></i> No bank account needed</li>
-                        <li><i class="fas fa-check"></i> Secure payment</li>
-                        <li><i class="fas fa-check"></i> Balance verification</li>
-                    </ul>
-                    <div class="method-notice">
-                        <i class="fas fa-info-circle"></i>
-                        <p>Gift cards must have sufficient balance to cover the full amount.</p>
+                <div class="method-card">
+                    <div class="method-icon">
+                        <i class="fab fa-bitcoin"></i>
+                    </div>
+                    <h3>Cryptocurrency</h3>
+                    <p>Bitcoin, Ethereum, and other major cryptocurrencies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="payment-security">
+        <div class="container">
+            <div class="security-content">
+                <h2>Your Payment Security is Our Priority</h2>
+                <div class="security-features">
+                    <div class="feature">
+                        <i class="fas fa-lock"></i>
+                        <h3>256-bit Encryption</h3>
+                        <p>All transactions are protected with bank-level security</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>PCI DSS Compliant</h3>
+                        <p>We meet all payment card industry security standards</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-user-shield"></i>
+                        <h3>Fraud Protection</h3>
+                        <p>Advanced systems monitor for suspicious activity</p>
                     </div>
                 </div>
             </div>
@@ -102,35 +101,43 @@
 
     <section class="payment-faq">
         <div class="container">
-            <h2>Payment FAQs</h2>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>Is my payment information secure?</h3>
-                    <i class="fas fa-chevron-down"></i>
+            <h2>Payment Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is my payment information secure?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we use industry-standard encryption and never store your full payment details on our servers. All transactions are processed through PCI-compliant payment gateways.</p>
+                    </div>
                 </div>
-                <div class="faq-answer">
-                    <p>Yes, all payments are processed through our PCI-DSS compliant payment processor with 256-bit encryption. We do not store your full payment details on our servers.</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I get a refund?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer a 14-day money-back guarantee for our premium services if you're not satisfied. Please review our refund policy for complete details.</p>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>Can I get a receipt for my payment?</h3>
-                    <i class="fas fa-chevron-down"></i>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you offer payment plans?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, for our higher-tier packages, we offer installment plans. Contact our support team to discuss available options.</p>
+                    </div>
                 </div>
-                <div class="faq-answer">
-                    <p>Yes, you will receive an email receipt immediately after your payment is processed. You can also access your payment history in your account dashboard.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>What if my payment doesn't go through?</h3>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>If your payment fails, please check your payment details and try again. If problems persist, contact our support team for assistance.</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How will my payment appear on my statement?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Charges will appear as "CareerBoost Services" on your credit card or bank statement.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -148,32 +155,36 @@
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="offer.html">Premium Service</a></li>
-                        <li><a href="payment-options.html">Payment Options</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="index.html#testimonials">Success Stories</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h3>Legal</h3>
                     <ul>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
                         <li><a href="#">Refund Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h3>Contact</h3>
-                    <p>support@careerboost.com</p>
-                    <p>+1 (555) 123-4567</p>
+                    <h3>Newsletter</h3>
+                    <form id="newsletter-form">
+                        <input type="email" id="newsletter-email" placeholder="Your Email" required>
+                        <button type="submit" class="btn-primary">Subscribe</button>
+                    </form>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 CareerBoost. All rights reserved.</p>
+                <p>&copy; <span id="current-year"></span> CareerBoost. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/payment-options.js"></script>
+    <script src="js/payment.js"></script>
 </body>
 </html>

