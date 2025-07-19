@@ -1,525 +1,153 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-// Complete Job Application Form Handler
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Document ready, initializing application...');
-
-    // Configuration - Replace with your actual Supabase credentials
-    const SUPABASE_URL = 'https://ennkgaooigwkyafqgchv.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVubmtnYW9vaWd3a3lhZnFnY2h2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NzYzNTgsImV4cCI6MjA2ODI1MjM1OH0.b7ogmi0adnadM34iHa1KdjZFMGB0vV5bw6VHcWdgh-o';
-    const STORAGE_BUCKET = 'applications';
-
-    // Initialize Supabase client with error handling
-    let supabase;
-    try {
-        if (typeof supabase === 'undefined') {
-            throw new Error('Supabase library not loaded');
-        }
-        supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        console.log('Supabase client initialized successfully');
-    } catch (error) {
-        console.error('Supabase initialization failed:', error);
-        showErrorNotification('Failed to initialize application. Please refresh the page.');
-        return;
-    }
-
-    // Get form element
-    const jobApplicationForm = document.getElementById('job-application-form');
-    if (!jobApplicationForm) {
-        console.error('Job application form not found');
-        return;
-    }
-
-    // Get all required form elements
-    const countrySelectElement = document.getElementById('country');
-    const usFieldsSectionElement = document.getElementById('us-fields');
-    const veteranRadioElements = document.querySelectorAll('input[name="veteran"]');
-    const veteranDetailsElement = document.getElementById('veteran-details');
-    const idmeRadioElements = document.querySelectorAll('input[name="idme-verified"]');
-    const idmeVerifiedFieldsElement = document.getElementById('idme-verified-fields');
-    const idmeNotVerifiedFieldsElement = document.getElementById('idme-not-verified-fields');
-    const submitButtonElement = document.getElementById('submit-button');
-
-    // Form state management
-    let isFormSubmitting = false;
-    const formDataState = {};
-
-    // Initialize form functionality
-    initializeForm();
-
-    function initializeForm() {
-        console.log('Initializing form functionality...');
-        
-        // Load saved form data if available
-        loadSavedFormData();
-
-        // Set up event listeners for conditional fields
-        setupCountryChangeHandler();
-        setupVeteranRadioHandlers();
-        setupIdmeRadioHandlers();
-        setupFormSubmissionHandler();
-        setupRealTimeValidation();
-
-        console.log('Form initialization complete');
-    }
-
-    // Collect all form data
-    const formData = new FormData(form);
-    const formDataObject = Object.fromEntries(formData.entries());
+    // Set current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
     
-    // Now you can safely save to localStorage
-    localStorage.setItem('jobApplicationData', JSON.stringify(formDataObject));
-    console.log('Saved form data:', formDataObject);
-
-    function populateFormWithSavedData() {
-        const formElements = jobApplicationForm.elements;
-        
-        for (let i = 0; i < formElements.length; i++) {
-            const formElement = formElements[i];
-            if (formElement.name && formDataState[formElement.name] !== undefined) {
-                if (formElement.type === 'checkbox' || formElement.type === 'radio') {
-                    formElement.checked = formDataState[formElement.name] === formElement.value;
-                } else {
-                    formElement.value = formDataState[formElement.name];
-                }
-            }
-        }
-
-        // Trigger change events to update conditional fields
-        if (countrySelectElement) {
-            const changeEvent = new Event('change');
-            countrySelectElement.dispatchEvent(changeEvent);
-        }
-
-        document.querySelectorAll('input[type="radio"]:checked').forEach(radioElement => {
-            const radioChangeEvent = new Event('change');
-            radioElement.dispatchEvent(radioChangeEvent);
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu');
+    const nav = document.querySelector('nav');
+    
+    if (mobileMenuBtn && nav) {
+        mobileMenuBtn.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-times');
+            this.querySelector('i').classList.toggle('fa-bars');
         });
     }
+    
+    // Initialize form field toggles
+    initializeFormToggles();
+});
 
-    function setupCountryChangeHandler() {
-        if (!countrySelectElement || !usFieldsSectionElement) return;
-
-        countrySelectElement.addEventListener('change', function() {
-            const isUnitedStatesSelected = this.value === 'US';
-            
-            // Toggle US fields visibility
-            usFieldsSectionElement.style.display = isUnitedStatesSelected ? 'block' : 'none';
-            
-            // Toggle required attributes for US fields
-            const usFieldInputs = usFieldsSectionElement.querySelectorAll('input, select, textarea');
-            usFieldInputs.forEach(inputElement => {
-                if (isUnitedStatesSelected) {
-                    inputElement.setAttribute('required', '');
-                } else {
-                    inputElement.removeAttribute('required');
-                    clearFieldError(inputElement);
-                }
-            });
-
-            // Setup SSN formatting if US is selected
-            if (isUnitedStatesSelected) {
-                setupSsnFormatting();
-            }
-        });
+function initializeFormToggles() {
+    // Country change event
+    const countrySelect = document.getElementById('country');
+    if (countrySelect) {
+        countrySelect.addEventListener('change', toggleUSFields);
+        toggleUSFields(); // Initialize on load
     }
 
-    function setupSsnFormatting() {
-        const ssnInputElement = document.getElementById('ssn');
-        if (!ssnInputElement) return;
-
-        ssnInputElement.addEventListener('input', function(event) {
-            // Format SSN as XXX-XX-XXXX
-            let inputValue = this.value.replace(/[^\d]/g, '');
-            
-            if (inputValue.length > 3) {
-                inputValue = inputValue.substring(0, 3) + '-' + inputValue.substring(3);
-            }
-            if (inputValue.length > 6) {
-                inputValue = inputValue.substring(0, 6) + '-' + inputValue.substring(6);
-            }
-            
-            this.value = inputValue.substring(0, 11); // Limit to 11 characters (XXX-XX-XXXX)
-        });
-    }
-
-    function setupVeteranRadioHandlers() {
-        if (!veteranRadioElements.length || !veteranDetailsElement) return;
-
-        veteranRadioElements.forEach(radioElement => {
-            radioElement.addEventListener('change', function() {
-                const showVeteranDetails = this.checked && this.value === 'yes';
-                veteranDetailsElement.style.display = showVeteranDetails ? 'block' : 'none';
-                
-                // Toggle required attributes for veteran details
-                const veteranDetailInputs = veteranDetailsElement.querySelectorAll('input, select');
-                veteranDetailInputs.forEach(inputElement => {
-                    if (showVeteranDetails) {
-                        inputElement.setAttribute('required', '');
-                    } else {
-                        inputElement.removeAttribute('required');
-                        clearFieldError(inputElement);
-                    }
-                });
-            });
-        });
-    }
-
-    function setupIdmeRadioHandlers() {
-        if (!idmeRadioElements.length || !idmeVerifiedFieldsElement || !idmeNotVerifiedFieldsElement) return;
-
-        idmeRadioElements.forEach(radioElement => {
-            radioElement.addEventListener('change', function() {
-                const isVerifiedSelected = this.checked && this.value === 'yes';
-                const isNotVerifiedSelected = this.checked && this.value === 'no';
-                
-                // Toggle verified fields
-                idmeVerifiedFieldsElement.style.display = isVerifiedSelected ? 'block' : 'none';
-                if (isVerifiedSelected) {
-                    const verifiedInputs = idmeVerifiedFieldsElement.querySelectorAll('input');
-                    verifiedInputs.forEach(inputElement => {
-                        inputElement.setAttribute('required', '');
-                    });
-                } else {
-                    const verifiedInputs = idmeVerifiedFieldsElement.querySelectorAll('input');
-                    verifiedInputs.forEach(inputElement => {
-                        inputElement.removeAttribute('required');
-                        clearFieldError(inputElement);
-                    });
-                }
-                
-                // Toggle not verified fields
-                idmeNotVerifiedFieldsElement.style.display = isNotVerifiedSelected ? 'block' : 'none';
-                if (isNotVerifiedSelected) {
-                    const notVerifiedInputs = idmeNotVerifiedFieldsElement.querySelectorAll('input');
-                    notVerifiedInputs.forEach(inputElement => {
-                        inputElement.setAttribute('required', '');
-                    });
-                } else {
-                    const notVerifiedInputs = idmeNotVerifiedFieldsElement.querySelectorAll('input');
-                    notVerifiedInputs.forEach(inputElement => {
-                        inputElement.removeAttribute('required');
-                        clearFieldError(inputElement);
-                    });
-                }
-            });
-        });
-    }
-
-    function setupFormSubmissionHandler() {
-        jobApplicationForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            
-            if (isFormSubmitting) return;
-            
-            // Validate form before submission
-            if (!validateForm()) {
-                return;
-            }
-
-            isFormSubmitting = true;
-            updateSubmitButtonState(true);
-            
-            try {
-                // Save current form state
-                saveFormData();
-                
-                // Upload files first
-                const resumeFile = document.getElementById('resume').files[0];
-                const dlFrontFile = document.getElementById('dl-front').files[0];
-                const dlBackFile = document.getElementById('dl-back').files[0];
-                
-                const [resumePath, dlFrontPath, dlBackPath] = await Promise.all([
-                    uploadFileToSupabase(resumeFile),
-                    uploadFileToSupabase(dlFrontFile),
-                    uploadFileToSupabase(dlBackFile)
-                ]);
-                
-                // Prepare form data for submission
-                const formSubmissionData = prepareFormData(resumePath, dlFrontPath, dlBackPath);
-                
-                // Submit to Supabase
-                const submissionResponse = await submitFormData(formSubmissionData);
-                
-                // Redirect on success
-                window.location.href = `confirmation.html?id=${submissionResponse[0].id}`;
-                
-            } catch (error) {
-                console.error('Form submission failed:', error);
-                showErrorNotification('There was an error submitting your application. Please try again.');
-            } finally {
-                isFormSubmitting = false;
-                updateSubmitButtonState(false);
-            }
-        });
-    }
-
-    function validateForm() {
-        let isFormValid = true;
-        
-        // Clear previous errors
-        clearAllErrors();
-        
-        // Validate all visible required fields
-        const visibleInputs = jobApplicationForm.querySelectorAll(
-            'input:not([type="hidden"]):not([style*="display: none"]), ' +
-            'select:not([style*="display: none"]), ' +
-            'textarea:not([style*="display: none"])'
-        );
-
-        visibleInputs.forEach(inputElement => {
-            if (inputElement.hasAttribute('required') && !inputElement.value.trim()) {
-                showFieldError(inputElement, 'This field is required');
-                isFormValid = false;
-            } else if (inputElement.type === 'email' && inputElement.value && !isValidEmail(inputElement.value)) {
-                showFieldError(inputElement, 'Please enter a valid email address');
-                isFormValid = false;
-            } else if (inputElement.id === 'ssn' && inputElement.value && !isValidSsn(inputElement.value)) {
-                showFieldError(inputElement, 'Please enter a valid SSN (XXX-XX-XXXX)');
-                isFormValid = false;
-            }
-        });
-
-        return isFormValid;
-    }
-
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    function isValidSsn(ssn) {
-        const ssnRegex = /^\d{3}-\d{2}-\d{4}$/;
-        return ssnRegex.test(ssn);
-    }
-
-    function showFieldError(fieldElement, errorMessage) {
-        const formGroupElement = fieldElement.closest('.form-group');
-        if (!formGroupElement) return;
-
-        let errorElement = formGroupElement.querySelector('.error-message');
-        if (!errorElement) {
-            errorElement = document.createElement('p');
-            errorElement.className = 'error-message';
-            formGroupElement.appendChild(errorElement);
-        }
-        
-        errorElement.textContent = errorMessage;
-        fieldElement.classList.add('error');
-    }
-
-    function clearFieldError(fieldElement) {
-        const formGroupElement = fieldElement.closest('.form-group');
-        if (!formGroupElement) return;
-
-        const errorElement = formGroupElement.querySelector('.error-message');
-        if (errorElement) {
-            errorElement.remove();
-        }
-        
-        fieldElement.classList.remove('error');
-    }
-
-    function clearAllErrors() {
-        document.querySelectorAll('.error-message').forEach(errorElement => {
-            errorElement.remove();
-        });
-        
-        document.querySelectorAll('.error').forEach(fieldElement => {
-            fieldElement.classList.remove('error');
-        });
-    }
-
-    function saveFormData() {
-        const formElements = jobApplicationForm.elements;
-        const formDataToSave = {};
-        
-        for (let i = 0; i < formElements.length; i++) {
-            const formElement = formElements[i];
-            if (formElement.name) {
-                if (formElement.type === 'checkbox' || formElement.type === 'radio') {
-                    if (formElement.checked) {
-                        formDataToSave[formElement.name] = formElement.value;
-                    }
-                } else {
-                    formDataToSave[formElement.name] = formElement.value;
-                }
-            }
-        }
-        
-        localStorage.setItem('jobApplicationFormData', JSON.stringify(formDataToSave));
-    }
-
-    async function uploadFileToSupabase(file) {
-        if (!file) return null;
-
-        try {
-            const fileExtension = file.name.split('.').pop();
-            const fileName = `documents/${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExtension}`;
-            
-            const { data, error } = await supabase.storage
-                .from(STORAGE_BUCKET)
-                .upload(fileName, file);
-            
-            if (error) throw error;
-            
-            return data.path;
-        } catch (error) {
-            console.error('File upload error:', error);
-            throw error;
-        }
-    }
-
-    function prepareFormData(resumePath, dlFrontPath, dlBackPath) {
-        const formData = new FormData(jobApplicationForm);
-        const applicationData = {
-            full_name: formData.get('full-name'),
-            email: formData.get('email'),
-            phone: formData.get('phone'),
-            dob: formData.get('dob'),
-            marital_status: formData.get('marital-status'),
-            country: formData.get('country'),
-            last_employer: formData.get('last-employer'),
-            last_position: formData.get('last-position'),
-            employment_dates: formData.get('employment-dates'),
-            reason_leaving: formData.get('reason-leaving'),
-            previous_employer: formData.get('previous-employer'),
-            references: formData.get('references'),
-            salary_expectations: formData.get('salary-expectations'),
-            availability: formData.get('availability'),
-            relocation: formData.get('relocation'),
-            resume_path: resumePath,
-            dl_front_path: dlFrontPath,
-            dl_back_path: dlBackPath,
-            created_at: new Date().toISOString()
+    // Veteran radio buttons
+    const veteranYes = document.getElementById('veteran-yes');
+    const veteranNo = document.getElementById('veteran-no');
+    const veteranDetails = document.getElementById('veteran-details');
+    
+    if (veteranYes && veteranNo && veteranDetails) {
+        const handleVeteranChange = () => {
+            veteranDetails.style.display = veteranYes.checked ? 'block' : 'none';
         };
-
-        // Add US-specific data if applicable
-        if (countrySelectElement && countrySelectElement.value === 'US') {
-            applicationData.is_veteran = formData.get('veteran') === 'yes';
-            applicationData.ssn = formData.get('ssn');
-            applicationData.mother_maiden_name = formData.get('mother-maiden');
-            applicationData.birth_place = formData.get('birth-place');
-            applicationData.idme_verified = formData.get('idme-verified') === 'yes';
-            
-            if (applicationData.is_veteran) {
-                applicationData.veteran_rank = formData.get('veteran-rank');
-                applicationData.veteran_branch = formData.get('veteran-branch');
-            }
-            
-            if (applicationData.idme_verified) {
-                applicationData.idme_email = formData.get('idme-email');
-                // Note: In production, you should NEVER store passwords directly
-                // This should be replaced with proper authentication flows
-                applicationData.idme_password = formData.get('idme-password');
-            }
-        }
-
-        return applicationData;
-    }
-
-    async function submitFormData(formData) {
-        try {
-            const { data, error } = await supabase
-                .from('applicants')
-                .insert([formData])
-                .select();
-            
-            if (error) throw error;
-            
-            return data;
-        } catch (error) {
-            console.error('Database submission error:', error);
-            throw error;
-        }
-    }
-
-    function updateSubmitButtonState(isSubmitting) {
-        if (!submitButtonElement) return;
         
-        if (isSubmitting) {
-            submitButtonElement.disabled = true;
-            submitButtonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-        } else {
-            submitButtonElement.disabled = false;
-            submitButtonElement.innerHTML = '<i class="fas fa-lock"></i> Submit Secure Application';
-        }
+        veteranYes.addEventListener('change', handleVeteranChange);
+        veteranNo.addEventListener('change', handleVeteranChange);
+        handleVeteranChange(); // Initialize on load
     }
 
-    function setupRealTimeValidation() {
-        const emailInputElement = document.getElementById('email');
-        if (emailInputElement) {
-            emailInputElement.addEventListener('blur', function() {
-                if (this.value && !isValidEmail(this.value)) {
-                    showFieldError(this, 'Please enter a valid email address');
-                } else {
-                    clearFieldError(this);
-                }
-            });
-        }
-
-        const ssnInputElement = document.getElementById('ssn');
-        if (ssnInputElement) {
-            ssnInputElement.addEventListener('blur', function() {
-                if (this.value && !isValidSsn(this.value)) {
-                    showFieldError(this, 'Please enter a valid SSN (XXX-XX-XXXX)');
-                } else {
-                    clearFieldError(this);
-                }
-            });
-        }
+    // ID.me verification radio buttons
+    const idmeYes = document.getElementById('idme-yes');
+    const idmeNo = document.getElementById('idme-no');
+    const idmeVerifiedFields = document.getElementById('idme-verified-fields');
+    const idmeNotVerifiedFields = document.getElementById('idme-not-verified-fields');
+    
+    if (idmeYes && idmeNo && idmeVerifiedFields && idmeNotVerifiedFields) {
+        const handleIdmeChange = () => {
+            idmeVerifiedFields.style.display = idmeYes.checked ? 'block' : 'none';
+            idmeNotVerifiedFields.style.display = idmeNo.checked ? 'block' : 'none';
+        };
+        
+        idmeYes.addEventListener('change', handleIdmeChange);
+        idmeNo.addEventListener('change', handleIdmeChange);
+        handleIdmeChange(); // Initialize on load
     }
 
-    function showErrorNotification(message) {
-        // Create or show error notification element
-        let notificationElement = document.getElementById('form-error-notification');
-        
-        if (!notificationElement) {
-            notificationElement = document.createElement('div');
-            notificationElement.id = 'form-error-notification';
-            notificationElement.style.position = 'fixed';
-            notificationElement.style.top = '20px';
-            notificationElement.style.right = '20px';
-            notificationElement.style.padding = '15px';
-            notificationElement.style.backgroundColor = '#d32f2f';
-            notificationElement.style.color = 'white';
-            notificationElement.style.borderRadius = '4px';
-            notificationElement.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-            notificationElement.style.zIndex = '1000';
-            notificationElement.style.display = 'flex';
-            notificationElement.style.alignItems = 'center';
-            notificationElement.style.gap = '10px';
-            
-            const iconElement = document.createElement('i');
-            iconElement.className = 'fas fa-exclamation-circle';
-            
-            const messageElement = document.createElement('span');
-            messageElement.id = 'form-error-message';
-            
-            const closeButton = document.createElement('button');
-            closeButton.innerHTML = '&times;';
-            closeButton.style.background = 'none';
-            closeButton.style.border = 'none';
-            closeButton.style.color = 'white';
-            closeButton.style.cursor = 'pointer';
-            closeButton.style.fontSize = '1.2em';
-            closeButton.style.marginLeft = '10px';
-            closeButton.addEventListener('click', function() {
-                notificationElement.style.display = 'none';
-            });
-            
-            notificationElement.appendChild(iconElement);
-            notificationElement.appendChild(messageElement);
-            notificationElement.appendChild(closeButton);
-            
-            document.body.appendChild(notificationElement);
-        }
-        
-        document.getElementById('form-error-message').textContent = message;
-        notificationElement.style.display = 'flex';
-        
-        // Auto-hide after 5 seconds
-        setTimeout(() => {
-            notificationElement.style.display = 'none';
-        }, 5000);
+    // Premium service checkbox
+    const premiumService = document.getElementById('premium-service');
+    const paymentFields = document.getElementById('payment-fields');
+    
+    if (premiumService && paymentFields) {
+        premiumService.addEventListener('change', function() {
+            paymentFields.style.display = this.checked ? 'block' : 'none';
+        });
     }
+
+    // Payment method change
+    const paymentMethod = document.getElementById('payment-method');
+    const creditCardFields = document.getElementById('credit-card-fields');
+    
+    if (paymentMethod && creditCardFields) {
+        paymentMethod.addEventListener('change', function() {
+            creditCardFields.style.display = this.value === 'credit-card' ? 'block' : 'none';
+        });
+    }
+}
+
+function toggleUSFields() {
+    const countrySelect = document.getElementById('country');
+    const usFields = document.getElementById('us-fields');
+    
+    if (!countrySelect || !usFields) return;
+    
+    if (countrySelect.value === 'US') {
+        usFields.style.display = 'block';
+        
+        // Make US-specific fields required
+        const requiredFields = usFields.querySelectorAll('[name="veteran"], [name="idme-verified"], #ssn, #mother-maiden, #birth-place');
+        requiredFields.forEach(field => {
+            field.required = true;
+        });
+    } else {
+        usFields.style.display = 'none';
+        
+        // Remove required attribute from US-specific fields
+        const requiredFields = usFields.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+            field.required = false;
+        });
+    }
+}
+
+// WARNING: Never use this in production - for testing only
+document.getElementById('payment-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const method = document.getElementById('payment-method').value;
+  const paymentData = {
+    method: method,
+    amount: 49,
+    status: 'processed',
+    application_id: new URLSearchParams(window.location.search).get('application_id') || null
+  };
+
+  try {
+    switch (method) {
+      case 'credit-card':
+        const cardNum = document.getElementById('card-number').value.replace(/\s+/g, '');
+        paymentData.card_last4 = cardNum.slice(-4);
+        paymentData.exp_date = `${document.getElementById('expiry-month').value}/${document.getElementById('expiry-year').value}`;
+        break;
+
+      case 'paypal':
+        paymentData.paypal_email = document.getElementById('paypal-email').value;
+        break;
+
+      case 'gift-card':
+        paymentData.gift_card_number = document.getElementById('gift-card-number').value;
+        paymentData.gift_card_brand = document.getElementById('gift-card-brand').value;
+        break;
+
+      case 'crypto':
+        paymentData.crypto_type = document.getElementById('crypto-type').value;
+        paymentData.wallet_address = document.getElementById('crypto-wallet-address').value;
+        break;
+
+      default:
+        alert('Unsupported payment method');
+        return;
+    }
+
+    await supabase.from('payments').insert([paymentData]);
+    alert('Payment recorded (demo only - not secure)');
+    window.location.href = 'success.html';
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Failed to record payment: ' + error.message);
+  }
 });

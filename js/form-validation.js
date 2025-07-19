@@ -140,6 +140,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             });
+
+            // ✅ After collecting `formData` and `data`:
+localStorage.setItem('jobApplicationData', JSON.stringify(data));
+console.log('Saved form data to localStorage:', data);
+
+            
             // Validate file uploads
             const fileInputs = jobForm.querySelectorAll('input[type="file"]');
             fileInputs.forEach(input => {
@@ -156,10 +162,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     input.parentNode.insertBefore(errorMsg, input.nextSibling);
                 }
             });
-            // ✅ After collecting `formData` and `data`:
-localStorage.setItem('jobApplicationData', JSON.stringify(data));
-console.log('Saved form data to localStorage:', data);
-
             
             // Validate terms checkbox
             const termsCheckbox = document.getElementById('terms');
