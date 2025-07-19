@@ -114,6 +114,14 @@ a:hover {
   transform: translateY(-1px);
 }
 
+@media (max-width: 480px) {
+  .btn-primary,
+  .btn-secondary {
+    width: 90%;
+    font-size: 15px;
+    padding: 12px 16px;
+  }
+}
 /* Header */
 header {
     background-color: white;
