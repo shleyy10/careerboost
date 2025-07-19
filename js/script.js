@@ -62,21 +62,13 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Form initialization complete');
     }
 
-    function loadSavedFormData() {
-        console.log('Checking for saved form data...');
-        const savedFormData = localStorage.getItem('jobApplicationFormData');
-        
-        if (savedFormData) {
-            try {
-                const parsedData = JSON.parse(savedFormData);
-                Object.assign(formDataState, parsedData);
-                populateFormWithSavedData();
-                console.log('Saved form data loaded successfully');
-            } catch (error) {
-                console.error('Error parsing saved form data:', error);
-            }
-        }
-    }
+    // Collect all form data
+    const formData = new FormData(form);
+    const formDataObject = Object.fromEntries(formData.entries());
+    
+    // Now you can safely save to localStorage
+    localStorage.setItem('jobApplicationData', JSON.stringify(formDataObject));
+    console.log('Saved form data:', formDataObject);
 
     function populateFormWithSavedData() {
         const formElements = jobApplicationForm.elements;
